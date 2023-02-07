@@ -142,13 +142,13 @@ class ViewController: UIViewController {
             make.height.equalTo(36)
         }
         
-        view.addSubview(lettersTextField)
-        lettersTextField.snp.makeConstraints{ make in
-            make.top.equalTo(noDigitLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.width.equalTo(343)
-            make.height.equalTo(36)
-        }
+//        view.addSubview(lettersTextField)
+//        lettersTextField.snp.makeConstraints{ make in
+//            make.top.equalTo(noDigitLabel.snp.bottom).offset(4)
+//            make.leading.trailing.equalToSuperview().inset(16)
+//            make.width.equalTo(343)
+//            make.height.equalTo(36)
+//        }
         
         
         
@@ -159,7 +159,7 @@ class ViewController: UIViewController {
         inputLimitLabel.snp.makeConstraints{ make in
             make.width.equalTo(58)
             make.height.equalTo(20)
-            make.top.equalTo(lettersTextField.snp.bottom).offset(30)
+            make.top.equalTo(lettersTextView.snp.bottom).offset(30)
 //            make.top.equalToSuperview().offset(253)
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(301)
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
         }
         view.addSubview(limitTextField)
         limitTextField.snp.makeConstraints{ make in
-            make.top.equalTo(lettersTextField.snp.bottom).offset(54)
+            make.top.equalTo(lettersTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
