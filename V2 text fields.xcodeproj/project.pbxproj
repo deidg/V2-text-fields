@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D7063026B5687950DB4B718 /* Pods_V2_text_fields.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07655D9E23CA08A0602A383E /* Pods_V2_text_fields.framework */; };
+		FA9F52FC2992A8110029D82E /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA9F52FB2992A8110029D82E /* Rubik-Regular.ttf */; };
 		FAC18C8B29923162002528EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC18C8A29923162002528EC /* AppDelegate.swift */; };
 		FAC18C8D29923162002528EC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC18C8C29923162002528EC /* SceneDelegate.swift */; };
 		FAC18C8F29923162002528EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC18C8E29923162002528EC /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 		07655D9E23CA08A0602A383E /* Pods_V2_text_fields.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2_text_fields.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4230E2C7DE38BA748E2310F5 /* Pods-V2 text fields.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2 text fields.debug.xcconfig"; path = "Target Support Files/Pods-V2 text fields/Pods-V2 text fields.debug.xcconfig"; sourceTree = "<group>"; };
 		9288F7077EC19DEE4E2735FC /* Pods-V2 text fields.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2 text fields.release.xcconfig"; path = "Target Support Files/Pods-V2 text fields/Pods-V2 text fields.release.xcconfig"; sourceTree = "<group>"; };
+		FA9F52FB2992A8110029D82E /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		FAC18C8729923162002528EC /* V2 text fields.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "V2 text fields.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC18C8A29923162002528EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAC18C8C29923162002528EC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		FA9F52FA2992A7D80029D82E /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FA9F52FB2992A8110029D82E /* Rubik-Regular.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 		FAC18C7E29923162002528EC = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +131,7 @@
 		FAC18C8929923162002528EC /* V2 text fields */ = {
 			isa = PBXGroup;
 			children = (
+				FA9F52FA2992A7D80029D82E /* fonts */,
 				FAC18CBA299231C9002528EC /* Delegates */,
 				FAC18CBC29923208002528EC /* Controllers */,
 				FAC18CBB299231EF002528EC /* Manage */,
@@ -279,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC18C9729923164002528EC /* LaunchScreen.storyboard in Resources */,
+				FA9F52FC2992A8110029D82E /* Rubik-Regular.ttf in Resources */,
 				FAC18C9429923164002528EC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
