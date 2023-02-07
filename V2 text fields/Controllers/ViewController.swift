@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupItemsOnView()
+        defaultConfiguration()
     }
     
     let Title: UILabel = {
@@ -90,6 +92,25 @@ class ViewController: UIViewController {
         
         return validationRulesLabel
     }()
+    
+    private func setupItemsOnView() {
+        
+    }
+    
+    
+    private func defaultConfiguration() {
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
