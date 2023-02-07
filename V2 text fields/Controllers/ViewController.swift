@@ -16,31 +16,40 @@ class ViewController: UIViewController {
         defaultConfiguration()
     }
     
-    //TODO: import font
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.text = "Text Fields"
-        titleLabel.font = UIFont(name: "Rubik", size: 34)
+        titleLabel.text = Constants.LabelsTexts.mainTitleLabeText
+        titleLabel.font = Constants.LabelsFonts.mainLabelFont
         titleLabel.textAlignment = .center
-        
-        titleLabel.backgroundColor = .green
+        titleLabel.backgroundColor = .white
         return titleLabel
     }()
     
+    
+    
+    // 1 field 1
     let noDigitLabel: UILabel = {
         let noDigitLabel = UILabel()
-        noDigitLabel.text = "NO digit field"
-        noDigitLabel.backgroundColor = .green
-        
+        noDigitLabel.text = Constants.LabelsTexts.noDigitLabelText
+        noDigitLabel.backgroundColor = Constants.LabelsBackgroundColors.labelBackgoundColors
         return noDigitLabel
     }()
+    let lettersTextView: UIView = {
+       let lettersTextView = UIView()
+        lettersTextView.backgroundColor = Constants.TextFields.viewBackgroundColor
+        return lettersTextView
+    }()
+    
     let lettersTextField: UITextField = {
         let lettersTextField = UITextField()
-        lettersTextField.backgroundColor = .blue
-        
-        
+        lettersTextField.backgroundColor = Constants.TextFields.viewBackgroundColor
         return lettersTextField
     }()
+    
+    
+    
+    
+    
     
     let inputLimitLabel: UILabel = {
         let inputLimitLabel = UILabel()
@@ -124,6 +133,15 @@ class ViewController: UIViewController {
             make.width.equalTo(78)
             make.height.equalTo(20)
         }
+      
+        view.addSubview(lettersTextView)
+        lettersTextView.snp.makeConstraints{make in
+            make.top.equalTo(noDigitLabel.snp.bottom).inset(4)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.width.equalTo(343)
+            make.height.equalTo(36)
+        }
+        
         view.addSubview(lettersTextField)
         lettersTextField.snp.makeConstraints{ make in
             make.top.equalTo(noDigitLabel.snp.bottom).offset(4)
@@ -131,6 +149,11 @@ class ViewController: UIViewController {
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
+        
+        
+        
+        
+        
         // 2 field 2
         view.addSubview(inputLimitLabel)
         inputLimitLabel.snp.makeConstraints{ make in
@@ -236,13 +259,32 @@ class ViewController: UIViewController {
     }
     
     //MARK: constants
-//    extension ViewController {
-//        enum Constants {
-//            enum titleLabel {
-//                static
-//            }
-//        }
-//    }
+extension ViewController {
+    enum Constants {
+        enum LabelsFonts {
+            static let mainLabelFont = UIFont(name: "Rubik", size: 34)
+            static let smallLabelFont = UIFont(name: "Rubik", size: 13)
+        }
+        enum LabelsTexts {
+            static let mainTitleLabeText = "Text Fields"
+            static let noDigitLabelText = "NO digit field"
+        }
+        enum LabelsBackgroundColors {
+            static let labelBackgoundColors = UIColor.white
+        }
+        enum TextFields {
+            
+            static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+        }
+        
+        
+        
+        
+        
+        
+        
+    }
     
     
-
+    
+}
