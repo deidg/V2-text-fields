@@ -99,12 +99,9 @@
 		FAC18C8929923162002528EC /* V2 text fields */ = {
 			isa = PBXGroup;
 			children = (
-				FAC18C8A29923162002528EC /* AppDelegate.swift */,
-				FAC18C8C29923162002528EC /* SceneDelegate.swift */,
-				FAC18C8E29923162002528EC /* ViewController.swift */,
-				FAC18C9029923162002528EC /* Main.storyboard */,
-				FAC18C9329923164002528EC /* Assets.xcassets */,
-				FAC18C9529923164002528EC /* LaunchScreen.storyboard */,
+				FAC18CBA299231C9002528EC /* Delegates */,
+				FAC18CBC29923208002528EC /* Controllers */,
+				FAC18CBB299231EF002528EC /* Manage */,
 				FAC18C9829923164002528EC /* Info.plist */,
 			);
 			path = "V2 text fields";
@@ -125,6 +122,33 @@
 				FAC18CAD29923164002528EC /* V2_text_fieldsUITestsLaunchTests.swift */,
 			);
 			path = "V2 text fieldsUITests";
+			sourceTree = "<group>";
+		};
+		FAC18CBA299231C9002528EC /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				FAC18C8A29923162002528EC /* AppDelegate.swift */,
+				FAC18C8C29923162002528EC /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		FAC18CBB299231EF002528EC /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				FAC18C9029923162002528EC /* Main.storyboard */,
+				FAC18C9329923164002528EC /* Assets.xcassets */,
+				FAC18C9529923164002528EC /* LaunchScreen.storyboard */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
+		FAC18CBC29923208002528EC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAC18C8E29923162002528EC /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
