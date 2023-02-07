@@ -16,16 +16,17 @@ class ViewController: UIViewController {
         defaultConfiguration()
     }
     
-    let Title: UILabel = {
+    let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        
+        titleLabel.text = "Text Fields"
+        titleLabel.font = UIFont(name: "Rubik", size: 34)
         
         return titleLabel
     }()
     
     let noDigitLabel: UILabel = {
         let noDigitLabel = UILabel()
-        
+        noDigitLabel.text = "NO digit field"
         
         return noDigitLabel
     }()
@@ -95,23 +96,39 @@ class ViewController: UIViewController {
     }()
     
     private func setupItemsOnView() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(92)
+            //      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(64)
+            make.trailing.leading.equalToSuperview().inset(16)
+        }
+    }
+        
+         func defaultConfiguration() {
+             self.view.backgroundColor = .white
+//            return
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     }
     
-    
-    private func defaultConfiguration() {
-        
-    }
-    
-    
-    
-    
-    
-    
+    //MARK: constants
+//    extension ViewController {
+//        enum Constants {
+//            enum titleLabel {
+//                static
+//            }
+//        }
+//    }
     
     
-    
-    
-    
-}
 
