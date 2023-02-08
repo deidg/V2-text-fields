@@ -16,6 +16,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = 7.0
+        let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
+        validationRulesLabel.attributedText = attributedString
+        
     }
     
     let titleLabel: UILabel = {
@@ -36,7 +43,7 @@ class ViewController: UIViewController {
         noDigitLabel.backgroundColor = Constants.LabelsBackgroundColors.labelBackgoundColors
         noDigitLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
         noDigitLabel.font = Constants.LabelsFonts.smallLabelFont
-
+        
         return noDigitLabel
     }()
     let lettersTextView: UIView = {
@@ -172,15 +179,26 @@ class ViewController: UIViewController {
     
     let validationRulesLabel: UILabel = {
         let validationRulesLabel = UILabel()
-        validationRulesLabel.numberOfLines = 0
+        validationRulesLabel.numberOfLines = 4
+        //        validationRulesLabel.setlinr
         validationRulesLabel.font = Constants.LabelsFonts.smallLabelFont
         validationRulesLabel.text = Constants.LabelsTexts.validationRulesLabelText
         validationRulesLabel.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         validationRulesLabel.textColor = Constants.LabelsTexts.validationRulesLabelTextColor
-        
-        
         return validationRulesLabel
     }()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     private func setupItemsOnView() {
         //  Textlabel
@@ -210,7 +228,7 @@ class ViewController: UIViewController {
         
         lettersTextView.addSubview(lettersTextField)
         lettersTextField.snp.makeConstraints{ make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(54)
+            //            make.top.equalTo(titleLabel.snp.bottom).offset(54)
             make.leading.equalTo(lettersTextView).inset(8)
             make.trailing.equalTo(lettersTextView).inset(260)
             make.top.equalTo(lettersTextView.snp.top).inset(7)// TODO: пофиксить высоту
@@ -254,14 +272,14 @@ class ViewController: UIViewController {
             make.trailing.equalTo(limitTextView).inset(260)
             make.top.equalTo(limitTextView.snp.top).inset(7)
             make.bottom.equalTo(limitTextView.snp.bottom).inset(7)
-//            make.width.equalTo(75)
-//            make.height.equalTo(22)
-
+            //            make.width.equalTo(75)
+            //            make.height.equalTo(22)
+            
         }
         
         
         
-     
+        
         // 3 field 3
         view.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
@@ -282,15 +300,15 @@ class ViewController: UIViewController {
         characterFieldView.addSubview(characterField)
         characterField.snp.makeConstraints{ make in
             make.leading.equalTo(characterFieldView).inset(8)
-//            make.trailing.equalTo(characterFieldView).inset(260)
+            //            make.trailing.equalTo(characterFieldView).inset(260)
             make.top.equalTo(characterFieldView.snp.top).inset(7)
             make.bottom.equalTo(characterFieldView.snp.bottom).inset(7)
             make.width.equalTo(200)  //123
             make.height.equalTo(22)
         }
-       
         
-       
+        
+        
         // 4 field 4 LINK
         view.addSubview(linkLabel)
         linkLabel.snp.makeConstraints{ make in
@@ -312,7 +330,7 @@ class ViewController: UIViewController {
         linkTextView.addSubview(linkTextField)
         linkTextField.snp.makeConstraints{ make in
             make.leading.equalTo(linkTextView).inset(8)
-//            make.trailing.equalTo(linkTextView).inset(260)
+            //            make.trailing.equalTo(linkTextView).inset(260)
             make.top.equalTo(linkTextView.snp.top).inset(7)
             make.bottom.equalTo(linkTextView.snp.bottom).inset(7)
             make.width.equalTo(200) //144
@@ -342,25 +360,25 @@ class ViewController: UIViewController {
         passwordTextView.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints{ make in
             make.leading.equalTo(passwordTextView).inset(8)
-//            make.trailing.equalTo(passwordTextView).inset(260)
+            //            make.trailing.equalTo(passwordTextView).inset(260)
             make.top.equalTo(passwordTextView.snp.top).inset(7)
             make.bottom.equalTo(passwordTextView.snp.bottom).inset(7)
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-    
+        
         view.addSubview(validationRulesLabel)
         validationRulesLabel.snp.makeConstraints{ make in
             make.top.equalTo(passwordTextView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(24)
-//            make.trailing.equalToSuperview().inset(213)
-//            make.trailing.equalToSuperview().inset(213)
+            //            make.trailing.equalToSuperview().inset(213)
+            //            make.trailing.equalToSuperview().inset(213)
             make.width.equalTo(160)
             make.height.equalTo(88)
         }
         
         
-       
+        
         
     }
     
@@ -391,7 +409,7 @@ extension ViewController {
         enum LabelsFonts {
             static let mainLabelFont = UIFont(name: "Rubik", size: 34)
             static let smallLabelFont = UIFont(name: "Rubik", size: 13)
-           
+            
         }
         enum LabelsTexts {
             static let mainTitleLabeText = "Text Fields"
@@ -402,12 +420,12 @@ extension ViewController {
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
             static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+            //            validationRules
             
-            
-//            Min length 8 characters.\n
-//            Min 1 digit,\n
-//            Min 1 lowercase,\n
-//            Min 1 capital required.\n
+            //            Min length 8 characters.\n
+            //            Min 1 digit,\n
+            //            Min 1 lowercase,\n
+            //            Min 1 capital required.\n
             
             
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
@@ -427,15 +445,19 @@ extension ViewController {
             static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
             static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
         }
-        
-        
-        
-        
-        
-        
-        
     }
-    
-    
-    
 }
+
+extension NSAttributedString {
+    func withLineSpacing(_ spacing: CGFloat) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(attributedString: self)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.lineSpacing = spacing
+        attributedString.addAttribute(.paragraphStyle,
+                                      value: paragraphStyle,
+                                      range: NSRange(location: 0, length: string.count))
+        return NSAttributedString(attributedString: attributedString)
+    }
+}
+
