@@ -170,11 +170,14 @@ class ViewController: UIViewController {
     }()
     
     
-    
-    
     let validationRulesLabel: UILabel = {
         let validationRulesLabel = UILabel()
-        validationRulesLabel.backgroundColor = .link
+        validationRulesLabel.numberOfLines = 0
+        validationRulesLabel.font = Constants.LabelsFonts.smallLabelFont
+        validationRulesLabel.text = Constants.LabelsTexts.validationRulesLabelText
+        validationRulesLabel.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        validationRulesLabel.textColor = Constants.LabelsTexts.validationRulesLabelTextColor
+        
         
         return validationRulesLabel
     }()
@@ -339,23 +342,22 @@ class ViewController: UIViewController {
         passwordTextView.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints{ make in
             make.leading.equalTo(passwordTextView).inset(8)
-//            make.trailing.equalTo(linkTextView).inset(260)
+//            make.trailing.equalTo(passwordTextView).inset(260)
             make.top.equalTo(passwordTextView.snp.top).inset(7)
             make.bottom.equalTo(passwordTextView.snp.bottom).inset(7)
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-            
-            
-            
-//        view.addSubview(validationRulesLabel)
-//        validationRulesLabel.snp.makeConstraints{ make in
-//            make.top.equalTo(passwordTextField.snp.bottom).offset(8)
-//            make.leading.trailing.equalToSuperview().inset(24)
+    
+        view.addSubview(validationRulesLabel)
+        validationRulesLabel.snp.makeConstraints{ make in
+            make.top.equalTo(passwordTextView.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(24)
 //            make.trailing.equalToSuperview().inset(213)
-//            make.width.equalTo(138)
-//            make.height.equalTo(88)
-//        }
+//            make.trailing.equalToSuperview().inset(213)
+            make.width.equalTo(160)
+            make.height.equalTo(88)
+        }
         
         
        
@@ -399,7 +401,17 @@ extension ViewController {
             static let onlyCharectersLabelText = "Only characters"
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
+            static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+            
+            
+//            Min length 8 characters.\n
+//            Min 1 digit,\n
+//            Min 1 lowercase,\n
+//            Min 1 capital required.\n
+            
+            
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+            static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
         }
         enum LabelsBackgroundColors {
             static let labelBackgoundColors = UIColor.white
