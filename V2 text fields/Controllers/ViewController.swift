@@ -146,16 +146,32 @@ class ViewController: UIViewController {
     //MARK:  5 field 5  PASSWORDS
     let validationLabel: UILabel = {
         let validationLabel = UILabel()
-        validationLabel.backgroundColor = .magenta
+        validationLabel.text = Constants.LabelsTexts.validationLabelText
+        validationLabel.backgroundColor = .white
+        validationLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
+        validationLabel.font = Constants.LabelsFonts.smallLabelFont
         
         return validationLabel
     }()
+    let passwordTextView: UIView = {
+        let passwordTextView = UITextField()
+        passwordTextView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        passwordTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
+        return passwordTextView
+    }()
+    
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
-        passwordTextField.backgroundColor = .magenta
-        
+        passwordTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        passwordTextField.text = Constants.TextFields.passwordTextFieldText
+        passwordTextField.textColor = Constants.TextFields.textFieldTextColor
+        passwordTextField.font = Constants.TextFields.textFieldFont
         return passwordTextField
     }()
+    
+    
+    
+    
     let validationRulesLabel: UILabel = {
         let validationRulesLabel = UILabel()
         validationRulesLabel.backgroundColor = .link
@@ -300,7 +316,7 @@ class ViewController: UIViewController {
             make.height.equalTo(22)
         }
         
-        /*
+        
         
         // 5 field 5  PASSWORDS
         view.addSubview(validationLabel)
@@ -311,24 +327,38 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(272)
         }
-        view.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints{ make in
+        
+        view.addSubview(passwordTextView)
+        passwordTextView.snp.makeConstraints{ make in
             make.top.equalTo(linkTextField.snp.bottom).offset(53)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
-        view.addSubview(validationRulesLabel)
-        validationRulesLabel.snp.makeConstraints{ make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(24)
-            make.trailing.equalToSuperview().inset(213)
-            make.width.equalTo(138)
-            make.height.equalTo(88)
+        
+        passwordTextView.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints{ make in
+            make.leading.equalTo(passwordTextView).inset(8)
+//            make.trailing.equalTo(linkTextView).inset(260)
+            make.top.equalTo(passwordTextView.snp.top).inset(7)
+            make.bottom.equalTo(passwordTextView.snp.bottom).inset(7)
+            make.width.equalTo(200) //144
+            make.height.equalTo(22)
         }
+            
+            
+            
+//        view.addSubview(validationRulesLabel)
+//        validationRulesLabel.snp.makeConstraints{ make in
+//            make.top.equalTo(passwordTextField.snp.bottom).offset(8)
+//            make.leading.trailing.equalToSuperview().inset(24)
+//            make.trailing.equalToSuperview().inset(213)
+//            make.width.equalTo(138)
+//            make.height.equalTo(88)
+//        }
         
         
-       */
+       
         
     }
     
@@ -368,6 +398,7 @@ extension ViewController {
             static let charactersCounterText = "5/10"
             static let onlyCharectersLabelText = "Only characters"
             static let linkLabelText = "Link"
+            static let validationLabelText = "Validation rules"
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
         }
         enum LabelsBackgroundColors {
@@ -377,6 +408,7 @@ extension ViewController {
             static let lettersTextFieldText = "Type here"
             static let onlyCharectersLabelText = "wwwww-ddddd"
             static let linkTextFieldText = "www.example.com"
+            static let passwordTextFieldText = "Password"
             
             static let textFieldFont = UIFont(name: "Rubik", size: 17)
             static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
