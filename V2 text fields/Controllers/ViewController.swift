@@ -63,6 +63,7 @@ class ViewController: UIViewController {
     }()
     
     //MARK:  2 field 2
+//    https://stackoverflow.com/questions/31363216/set-the-maximum-character-length-of-a-uitextfield-in-swift
     let inputLimitLabel: UILabel = {
         let inputLimitLabel = UILabel()
         inputLimitLabel.text = Constants.LabelsTexts.inputLimitLabelText
@@ -98,7 +99,6 @@ class ViewController: UIViewController {
     
     
     //MARK:  3 field 3
-    
     let onlyCharectersLabel: UILabel = {
         let onlyCharectersLabel = UILabel()
         onlyCharectersLabel.text = Constants.LabelsTexts.onlyCharectersLabelText
@@ -138,7 +138,6 @@ class ViewController: UIViewController {
         linkTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
         return linkTextView
     }()
-    
     let linkTextField: UITextField = {
         let linkTextField = UITextField()
         linkTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
@@ -157,7 +156,6 @@ class ViewController: UIViewController {
         validationLabel.backgroundColor = .white
         validationLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
         validationLabel.font = Constants.LabelsFonts.smallLabelFont
-        
         return validationLabel
     }()
     let passwordTextView: UIView = {
@@ -166,7 +164,6 @@ class ViewController: UIViewController {
         passwordTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
         return passwordTextView
     }()
-    
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
         passwordTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
@@ -175,29 +172,17 @@ class ViewController: UIViewController {
         passwordTextField.font = Constants.TextFields.textFieldFont
         return passwordTextField
     }()
-    
-    
     let validationRulesLabel: UILabel = {
         let validationRulesLabel = UILabel()
         validationRulesLabel.numberOfLines = 4
-        //        validationRulesLabel.setlinr
+        validationRulesLabel.backgroundColor = .white
         validationRulesLabel.font = Constants.LabelsFonts.smallLabelFont
         validationRulesLabel.text = Constants.LabelsTexts.validationRulesLabelText
-        validationRulesLabel.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         validationRulesLabel.textColor = Constants.LabelsTexts.validationRulesLabelTextColor
         return validationRulesLabel
     }()
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
     
     private func setupItemsOnView() {
@@ -217,7 +202,6 @@ class ViewController: UIViewController {
             make.width.equalTo(78)
             make.height.equalTo(20)
         }
-        
         view.addSubview(lettersTextView)
         lettersTextView.snp.makeConstraints{make in
             make.top.equalTo(noDigitLabel.snp.bottom).offset(4)
@@ -225,7 +209,6 @@ class ViewController: UIViewController {
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
-        
         lettersTextView.addSubview(lettersTextField)
         lettersTextField.snp.makeConstraints{ make in
             //            make.top.equalTo(titleLabel.snp.bottom).offset(54)
@@ -236,10 +219,7 @@ class ViewController: UIViewController {
             make.width.equalTo(75)
             make.height.equalTo(22)
         }
-        
-        
-        
-        
+       
         // 2 field 2
         view.addSubview(inputLimitLabel)
         inputLimitLabel.snp.makeConstraints{ make in
@@ -257,7 +237,6 @@ class ViewController: UIViewController {
             make.trailing.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(334)
         }
-        
         view.addSubview(limitTextView)
         limitTextView.snp.makeConstraints{ make in
             make.top.equalTo(lettersTextView.snp.bottom).offset(54)
@@ -265,7 +244,6 @@ class ViewController: UIViewController {
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
-        
         limitTextView.addSubview(limitTextField)
         limitTextField.snp.makeConstraints{ make in
             make.leading.equalTo(limitTextView).inset(8)
@@ -274,12 +252,8 @@ class ViewController: UIViewController {
             make.bottom.equalTo(limitTextView.snp.bottom).inset(7)
             //            make.width.equalTo(75)
             //            make.height.equalTo(22)
-            
         }
-        
-        
-        
-        
+    
         // 3 field 3
         view.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
@@ -306,9 +280,7 @@ class ViewController: UIViewController {
             make.width.equalTo(200)  //123
             make.height.equalTo(22)
         }
-        
-        
-        
+      
         // 4 field 4 LINK
         view.addSubview(linkLabel)
         linkLabel.snp.makeConstraints{ make in
@@ -336,9 +308,7 @@ class ViewController: UIViewController {
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-        
-        
-        
+     
         // 5 field 5  PASSWORDS
         view.addSubview(validationLabel)
         validationLabel.snp.makeConstraints{ make in
@@ -348,7 +318,6 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(272)
         }
-        
         view.addSubview(passwordTextView)
         passwordTextView.snp.makeConstraints{ make in
             make.top.equalTo(linkTextField.snp.bottom).offset(53)
@@ -356,7 +325,6 @@ class ViewController: UIViewController {
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
-        
         passwordTextView.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints{ make in
             make.leading.equalTo(passwordTextView).inset(8)
@@ -366,7 +334,6 @@ class ViewController: UIViewController {
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-        
         view.addSubview(validationRulesLabel)
         validationRulesLabel.snp.makeConstraints{ make in
             make.top.equalTo(passwordTextView.snp.bottom).offset(8)
@@ -376,15 +343,10 @@ class ViewController: UIViewController {
             make.width.equalTo(160)
             make.height.equalTo(88)
         }
-        
-        
-        
-        
     }
     
     func defaultConfiguration() {
         self.view.backgroundColor = .white
-        //            return
     }
     
     
