@@ -55,10 +55,11 @@ class ViewController: UIViewController {
     
     let lettersTextField: UITextField = {
         let lettersTextField = UITextField()
-        lettersTextField.text = Constants.TextFields.lettersTextFieldText
+        lettersTextField.placeholder = Constants.TextFields.lettersTextFieldPlaceholderText
         lettersTextField.textColor = Constants.TextFields.textFieldTextColor
         lettersTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         lettersTextField.font = Constants.TextFields.textFieldFont
+        lettersTextField.isEnabled = true
         return lettersTextField
     }()
     
@@ -91,7 +92,7 @@ class ViewController: UIViewController {
     let limitTextField: UITextField = {
         let limitTextField = UITextField()
         limitTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        limitTextField.text = Constants.TextFields.lettersTextFieldText
+        limitTextField.placeholder = Constants.TextFields.lettersTextFieldPlaceholderText
         limitTextField.textColor = Constants.TextFields.textFieldTextColor
         limitTextField.font = Constants.TextFields.textFieldFont
         return limitTextField
@@ -108,7 +109,7 @@ class ViewController: UIViewController {
         return onlyCharectersLabel
     }()
     let characterFieldView: UIView = {
-        let characterFieldView = UITextField()
+        let characterFieldView = UIView()
         characterFieldView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         characterFieldView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
         return characterFieldView
@@ -116,7 +117,7 @@ class ViewController: UIViewController {
     let characterField: UITextField = {
         let characterField = UITextField()
         characterField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        characterField.text = Constants.TextFields.onlyCharectersLabelText
+        characterField.placeholder = Constants.TextFields.onlyCharectersLabelPlaceholderText
         characterField.textColor = Constants.TextFields.textFieldTextColor
         characterField.font = Constants.TextFields.textFieldFont
         return characterField
@@ -133,7 +134,7 @@ class ViewController: UIViewController {
     }()
     
     let linkTextView: UIView = {
-        let linkTextView = UITextField()
+        let linkTextView = UIView()
         linkTextView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         linkTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
         return linkTextView
@@ -141,7 +142,7 @@ class ViewController: UIViewController {
     let linkTextField: UITextField = {
         let linkTextField = UITextField()
         linkTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        linkTextField.text = Constants.TextFields.linkTextFieldText
+        linkTextField.placeholder = Constants.TextFields.linkTextFieldPlaceholderText
         linkTextField.textColor = Constants.TextFields.textFieldTextColor
         linkTextField.font = Constants.TextFields.textFieldFont
         
@@ -159,7 +160,7 @@ class ViewController: UIViewController {
         return validationLabel
     }()
     let passwordTextView: UIView = {
-        let passwordTextView = UITextField()
+        let passwordTextView = UIView()
         passwordTextView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         passwordTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
         return passwordTextView
@@ -167,7 +168,7 @@ class ViewController: UIViewController {
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
         passwordTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        passwordTextField.text = Constants.TextFields.passwordTextFieldText
+        passwordTextField.placeholder = Constants.TextFields.passwordTextFieldPlaceholderText
         passwordTextField.textColor = Constants.TextFields.textFieldTextColor
         passwordTextField.font = Constants.TextFields.textFieldFont
         return passwordTextField
@@ -397,10 +398,10 @@ extension ViewController {
             static let labelBackgoundColors = UIColor.white
         }
         enum TextFields {
-            static let lettersTextFieldText = "Type here"
-            static let onlyCharectersLabelText = "wwwww-ddddd"
-            static let linkTextFieldText = "www.example.com"
-            static let passwordTextFieldText = "Password"
+            static let lettersTextFieldPlaceholderText = "Type here"
+            static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
+            static let linkTextFieldPlaceholderText = "www.example.com"
+            static let passwordTextFieldPlaceholderText = "Password"
             
             static let textFieldFont = UIFont(name: "Rubik", size: 17)
             static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
