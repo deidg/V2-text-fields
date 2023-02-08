@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     
     
     
-    // 1 field 1
+    //MARK: 1 field 1
     let noDigitLabel: UILabel = {
         let noDigitLabel = UILabel()
         noDigitLabel.text = Constants.LabelsTexts.noDigitLabelText // больше буквы какие то. В нижнем лейбле - смотряться ок.
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         return lettersTextField
     }()
     
-    // 2 field 2
+    //MARK:  2 field 2
     let inputLimitLabel: UILabel = {
         let inputLimitLabel = UILabel()
         inputLimitLabel.backgroundColor = .white
@@ -81,15 +81,14 @@ class ViewController: UIViewController {
     }()
     let limitTextField: UITextField = {
         let limitTextField = UITextField()
-        limitTextField.backgroundColor = .yellow
-        
+        limitTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         return limitTextField
     }()
     
     
     
     
-    
+    //MARK:  3 field 3
     
     let onlyCharectersLabel = {
         let onlyCharectersLabel = UILabel()
@@ -103,7 +102,7 @@ class ViewController: UIViewController {
         
         return characterField
     }()
-    // 4 field 4  LINK
+    //MARK:  4 field 4  LINK
     let linkLabel: UILabel = {
         let linkLabel = UILabel()
         linkLabel.backgroundColor = .cyan
@@ -116,7 +115,9 @@ class ViewController: UIViewController {
         
         return linkTextField
     }()
-    // 5 field 5  PASSWORDS
+    
+    
+    //MARK:  5 field 5  PASSWORDS
     let validationLabel: UILabel = {
         let validationLabel = UILabel()
         validationLabel.backgroundColor = .magenta
@@ -205,10 +206,10 @@ class ViewController: UIViewController {
         limitTextView.addSubview(limitTextField)
         limitTextField.snp.makeConstraints{ make in
 //            make.top.equalTo(lettersTextView.snp.bottom).offset(54)
-            make.leading.equalTo(lettersTextView).inset(8)
-            make.trailing.equalTo(lettersTextView).inset(260)
-            make.top.equalTo(lettersTextView.snp.top).inset(7)// TODO: пофиксить высоту
-            make.bottom.equalTo(lettersTextView.snp.bottom).inset(7)
+            make.leading.equalTo(limitTextView).inset(8)
+            make.trailing.equalTo(limitTextView).inset(260)
+            make.top.equalTo(limitTextView.snp.top).inset(7)// TODO: пофиксить высоту
+            make.bottom.equalTo(limitTextView.snp.bottom).inset(7)
 //            make.width.equalTo(75)
 //            make.height.equalTo(22)
 
@@ -216,7 +217,7 @@ class ViewController: UIViewController {
         
         
         
-        
+      /*
         // 3 field 3
         view.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
@@ -275,7 +276,7 @@ class ViewController: UIViewController {
         }
         
         
-        
+       */
         
     }
     
