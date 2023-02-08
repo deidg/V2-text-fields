@@ -16,6 +16,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
+        func printing() {
+            print("Constants.LabelsTexts.noDigitLabelText")
+        }
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -60,6 +63,8 @@ class ViewController: UIViewController {
         lettersTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         lettersTextField.font = Constants.TextFields.textFieldFont
         lettersTextField.isEnabled = true
+//        lettersTextField.keyboardType = UIKeyboardType.numberPad
+
         return lettersTextField
     }()
     
@@ -95,6 +100,8 @@ class ViewController: UIViewController {
         limitTextField.placeholder = Constants.TextFields.lettersTextFieldPlaceholderText
         limitTextField.textColor = Constants.TextFields.textFieldTextColor
         limitTextField.font = Constants.TextFields.textFieldFont
+        
+
         return limitTextField
     }()
     
@@ -184,8 +191,6 @@ class ViewController: UIViewController {
     }()
     
  
-    
-    
     private func setupItemsOnView() {
         //  Textlabel
         view.addSubview(titleLabel)
@@ -350,11 +355,20 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
+//    let set = CharacterSet.
     
-    
-    
-    
-    
+//    func textField(_ textField: lettersTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if let x = string.rangeOfCharacter(from: NSCharacterSet.letters) {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+    func printing() {
+        print(Constants.LabelsTexts.noDigitLabelText)
+    }
+//    не могу распечатать текст из enum
+//    а мне это надо для того, чтобы попрактиоваться печатать текст из филда
     
     
     
