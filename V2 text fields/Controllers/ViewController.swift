@@ -115,22 +115,29 @@ class ViewController: UIViewController {
         return characterField
     }()
     
-    
-    
-    
-    
-    
-    
     //MARK:  4 field 4  LINK
     let linkLabel: UILabel = {
         let linkLabel = UILabel()
-        linkLabel.backgroundColor = .cyan
-        
+        linkLabel.text = Constants.LabelsTexts.linkLabelText
+        linkLabel.backgroundColor = .white
+        linkLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
+        linkLabel.font = Constants.LabelsFonts.smallLabelFont
         return linkLabel
     }()
+    
+    let linkTextView: UIView = {
+        let linkTextView = UITextField()
+        linkTextView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        linkTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
+        return linkTextView
+    }()
+    
     let linkTextField: UITextField = {
         let linkTextField = UITextField()
-        linkTextField.backgroundColor = .cyan
+        linkTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        linkTextField.text = Constants.TextFields.linkTextFieldText
+        linkTextField.textColor = Constants.TextFields.textFieldTextColor
+        linkTextField.font = Constants.TextFields.textFieldFont
         
         return linkTextField
     }()
@@ -256,14 +263,14 @@ class ViewController: UIViewController {
         characterFieldView.addSubview(characterField)
         characterField.snp.makeConstraints{ make in
             make.leading.equalTo(characterFieldView).inset(8)
-            make.trailing.equalTo(characterFieldView).inset(260)
+//            make.trailing.equalTo(characterFieldView).inset(260)
             make.top.equalTo(characterFieldView.snp.top).inset(7)
             make.bottom.equalTo(characterFieldView.snp.bottom).inset(7)
-            make.width.equalTo(123)
+            make.width.equalTo(200)  //123
             make.height.equalTo(22)
         }
        
-        /*
+        
        
         // 4 field 4 LINK
         view.addSubview(linkLabel)
@@ -274,13 +281,27 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(335)
         }
-        view.addSubview(linkTextField)
-        linkTextField.snp.makeConstraints{ make in
+        
+        view.addSubview(linkTextView)
+        linkTextView.snp.makeConstraints{ make in
             make.top.equalTo(characterField.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
+        
+        linkTextView.addSubview(linkTextField)
+        linkTextField.snp.makeConstraints{ make in
+            make.leading.equalTo(linkTextView).inset(8)
+//            make.trailing.equalTo(linkTextView).inset(260)
+            make.top.equalTo(linkTextView.snp.top).inset(7)
+            make.bottom.equalTo(linkTextView.snp.bottom).inset(7)
+            make.width.equalTo(200) //144
+            make.height.equalTo(22)
+        }
+        
+        /*
+        
         // 5 field 5  PASSWORDS
         view.addSubview(validationLabel)
         validationLabel.snp.makeConstraints{ make in
@@ -346,6 +367,7 @@ extension ViewController {
             static let inputLimitLabelText = "Input limit"
             static let charactersCounterText = "5/10"
             static let onlyCharectersLabelText = "Only characters"
+            static let linkLabelText = "Link"
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
         }
         enum LabelsBackgroundColors {
@@ -354,6 +376,7 @@ extension ViewController {
         enum TextFields {
             static let lettersTextFieldText = "Type here"
             static let onlyCharectersLabelText = "wwwww-ddddd"
+            static let linkTextFieldText = "www.example.com"
             
             static let textFieldFont = UIFont(name: "Rubik", size: 17)
             static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
