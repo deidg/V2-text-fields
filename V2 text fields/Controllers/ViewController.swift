@@ -35,6 +35,8 @@ class ViewController: UIViewController {
         noDigitLabel.text = Constants.LabelsTexts.noDigitLabelText // больше буквы какие то. В нижнем лейбле - смотряться ок.
         noDigitLabel.backgroundColor = Constants.LabelsBackgroundColors.labelBackgoundColors
         noDigitLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
+        noDigitLabel.font = Constants.LabelsFonts.smallLabelFont
+
         return noDigitLabel
     }()
     let lettersTextView: UIView = {
@@ -47,17 +49,17 @@ class ViewController: UIViewController {
     let lettersTextField: UITextField = {
         let lettersTextField = UITextField()
         lettersTextField.text = Constants.TextFields.lettersTextFieldText
-        lettersTextField.textColor = Constants.TextFields.lettersTextFieldTextColor
+        lettersTextField.textColor = Constants.TextFields.textFieldTextColor
         lettersTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        //        lettersTextField.backgroundColor = .yellow
+        lettersTextField.font = Constants.TextFields.textFieldFont
         return lettersTextField
     }()
     
     //MARK:  2 field 2
     let inputLimitLabel: UILabel = {
         let inputLimitLabel = UILabel()
-        inputLimitLabel.backgroundColor = .white
         inputLimitLabel.text = Constants.LabelsTexts.inputLimitLabelText
+        inputLimitLabel.backgroundColor = .white
         inputLimitLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
         inputLimitLabel.font = Constants.LabelsFonts.smallLabelFont
         return inputLimitLabel
@@ -76,32 +78,49 @@ class ViewController: UIViewController {
         limitTextView.backgroundColor = .yellow
         limitTextView.backgroundColor = Constants.TextFields.viewBackgroundColor
         limitTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
-        
         return limitTextView
     }()
     let limitTextField: UITextField = {
         let limitTextField = UITextField()
         limitTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        limitTextField.text = Constants.TextFields.lettersTextFieldText
+        limitTextField.textColor = Constants.TextFields.textFieldTextColor
+        limitTextField.font = Constants.TextFields.textFieldFont
         return limitTextField
     }()
     
     
-    
-    
     //MARK:  3 field 3
     
-    let onlyCharectersLabel = {
+    let onlyCharectersLabel: UILabel = {
         let onlyCharectersLabel = UILabel()
-        onlyCharectersLabel.backgroundColor = .brown
-        
+        onlyCharectersLabel.text = Constants.LabelsTexts.onlyCharectersLabelText
+        onlyCharectersLabel.backgroundColor = .white
+        onlyCharectersLabel.textColor = Constants.LabelsTexts.smallLabelTextColor
+        onlyCharectersLabel.font = Constants.LabelsFonts.smallLabelFont
         return onlyCharectersLabel
     }()
-    let characterField = {
+    let characterFieldView: UIView = {
+        let characterFieldView = UITextField()
+        characterFieldView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        characterFieldView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
+        return characterFieldView
+    }()
+    let characterField: UITextField = {
         let characterField = UITextField()
-        characterField.backgroundColor = .brown
-        
+        characterField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        characterField.text = Constants.TextFields.onlyCharectersLabelText
+        characterField.textColor = Constants.TextFields.textFieldTextColor
+        characterField.font = Constants.TextFields.textFieldFont
         return characterField
     }()
+    
+    
+    
+    
+    
+    
+    
     //MARK:  4 field 4  LINK
     let linkLabel: UILabel = {
         let linkLabel = UILabel()
@@ -205,10 +224,9 @@ class ViewController: UIViewController {
         
         limitTextView.addSubview(limitTextField)
         limitTextField.snp.makeConstraints{ make in
-//            make.top.equalTo(lettersTextView.snp.bottom).offset(54)
             make.leading.equalTo(limitTextView).inset(8)
             make.trailing.equalTo(limitTextView).inset(260)
-            make.top.equalTo(limitTextView.snp.top).inset(7)// TODO: пофиксить высоту
+            make.top.equalTo(limitTextView.snp.top).inset(7)
             make.bottom.equalTo(limitTextView.snp.bottom).inset(7)
 //            make.width.equalTo(75)
 //            make.height.equalTo(22)
@@ -217,7 +235,7 @@ class ViewController: UIViewController {
         
         
         
-      /*
+     
         // 3 field 3
         view.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
@@ -227,13 +245,26 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(269)
         }
-        view.addSubview(characterField)
-        characterField.snp.makeConstraints{ make in
-            make.top.equalTo(limitTextField.snp.bottom).offset(54)
+        view.addSubview(characterFieldView)
+        characterFieldView.snp.makeConstraints{ make in
+            make.top.equalTo(limitTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
+        
+        characterFieldView.addSubview(characterField)
+        characterField.snp.makeConstraints{ make in
+            make.leading.equalTo(characterFieldView).inset(8)
+            make.trailing.equalTo(characterFieldView).inset(260)
+            make.top.equalTo(characterFieldView.snp.top).inset(7)
+            make.bottom.equalTo(characterFieldView.snp.bottom).inset(7)
+            make.width.equalTo(123)
+            make.height.equalTo(22)
+        }
+       
+        /*
+       
         // 4 field 4 LINK
         view.addSubview(linkLabel)
         linkLabel.snp.makeConstraints{ make in
@@ -314,6 +345,7 @@ extension ViewController {
             static let noDigitLabelText = "NO digit field"
             static let inputLimitLabelText = "Input limit"
             static let charactersCounterText = "5/10"
+            static let onlyCharectersLabelText = "Only characters"
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
         }
         enum LabelsBackgroundColors {
@@ -321,7 +353,10 @@ extension ViewController {
         }
         enum TextFields {
             static let lettersTextFieldText = "Type here"
-            static let lettersTextFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
+            static let onlyCharectersLabelText = "wwwww-ddddd"
+            
+            static let textFieldFont = UIFont(name: "Rubik", size: 17)
+            static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
             static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
             static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
         }
