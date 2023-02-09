@@ -17,6 +17,13 @@ class ViewController: UIViewController {
         setupItemsOnView()
         defaultConfiguration()
         
+        lettersTextField.delegate = self
+        limitTextField.delegate = self
+        characterTextField.delegate = self
+        linkTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        var validator = Validator()
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -64,7 +71,7 @@ class ViewController: UIViewController {
 //        lettersTextField.keyboardType = UIKeyboardType.numberPad
        
         lettersTextField.keyboardType = .alphabet
-//        lettersTextField.becomeFirstResponder()
+        lettersTextField.becomeFirstResponder()
         
         return lettersTextField
     }()
@@ -116,19 +123,19 @@ class ViewController: UIViewController {
         onlyCharectersLabel.font = Constants.LabelsFonts.smallLabelFont
         return onlyCharectersLabel
     }()
-    let characterFieldView: UIView = {
-        let characterFieldView = UIView()
-        characterFieldView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        characterFieldView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
-        return characterFieldView
+    let characterTextView: UIView = {
+        let characterTextView = UIView()
+        characterTextView.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        characterTextView.layer.cornerRadius = Constants.LabelsSettings.lettersTextViewCornerRadius
+        return characterTextView
     }()
-    let characterField: UITextField = {
-        let characterField = UITextField()
-        characterField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
-        characterField.placeholder = Constants.TextFields.onlyCharectersLabelPlaceholderText
-        characterField.textColor = Constants.TextFields.textFieldTextColor
-        characterField.font = Constants.TextFields.textFieldFont
-        return characterField
+    let characterTextField: UITextField = {
+        let characterTextField = UITextField()
+        characterTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
+        characterTextField.placeholder = Constants.TextFields.onlyCharectersLabelPlaceholderText
+        characterTextField.textColor = Constants.TextFields.textFieldTextColor
+        characterTextField.font = Constants.TextFields.textFieldFont
+        return characterTextField
     }()
     
     //MARK:  4 field 4  LINK
@@ -270,20 +277,20 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(269)
         }
-        view.addSubview(characterFieldView)
-        characterFieldView.snp.makeConstraints{ make in
+        view.addSubview(characterTextView)
+        characterTextView.snp.makeConstraints{ make in
             make.top.equalTo(limitTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
         }
         
-        characterFieldView.addSubview(characterField)
-        characterField.snp.makeConstraints{ make in
-            make.leading.equalTo(characterFieldView).inset(8)
+        characterTextView.addSubview(characterTextField)
+        characterTextField.snp.makeConstraints{ make in
+            make.leading.equalTo(characterTextView).inset(8)
             //            make.trailing.equalTo(characterFieldView).inset(260)
-            make.top.equalTo(characterFieldView.snp.top).inset(7)
-            make.bottom.equalTo(characterFieldView.snp.bottom).inset(7)
+            make.top.equalTo(characterTextView.snp.top).inset(7)
+            make.bottom.equalTo(characterTextView.snp.bottom).inset(7)
             make.width.equalTo(200)  //123
             make.height.equalTo(22)
         }
@@ -293,14 +300,14 @@ class ViewController: UIViewController {
         linkLabel.snp.makeConstraints{ make in
             make.width.equalTo(24)
             make.height.equalTo(20)
-            make.top.equalTo(characterField.snp.bottom).offset(30)
+            make.top.equalTo(characterTextView.snp.bottom).offset(30)
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(335)
         }
         
         view.addSubview(linkTextView)
         linkTextView.snp.makeConstraints{ make in
-            make.top.equalTo(characterField.snp.bottom).offset(54)
+            make.top.equalTo(characterTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
             make.width.equalTo(343)
             make.height.equalTo(36)
@@ -426,20 +433,19 @@ extension ViewController {
 
 extension ViewController: UITextFieldDelegate {
    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let lettersTF = lettersTextField
-        print(lettersTF)
+    func textFieldShouldReturn(_ lettersTextField: UITextField) -> Bool {
+        lettersTextField.resignFirstResponder()
         return true
     }
-    пересмотреть ещераз урок и сделать клавиутуру ввода. чтобы были ентре и тп\
-    
-//    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        switch textField {
-//        case case: letterValidator.hasLetters(text: string)
-//        default: break
-//        }
-//        return true
-//    }
+ 
+    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField {
+        case lettersTextField:
+            letterValidator.hasLetters(text: string)
+        default: break
+        }
+        return true
+    }
     
     // texfield 1 - text validation
     struct Validator {
