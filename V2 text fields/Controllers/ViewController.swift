@@ -10,15 +10,13 @@ import SnapKit
 
 class ViewController: UIViewController {
     var digitCounter: Int = 0
-    
+    var letterValidator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
-        func printing() {
-            print("Constants.LabelsTexts.noDigitLabelText")
-        }
+        
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -64,7 +62,10 @@ class ViewController: UIViewController {
         lettersTextField.font = Constants.TextFields.textFieldFont
         lettersTextField.isEnabled = true
 //        lettersTextField.keyboardType = UIKeyboardType.numberPad
-
+       
+        lettersTextField.keyboardType = .alphabet
+//        lettersTextField.becomeFirstResponder()
+        
         return lettersTextField
     }()
     
@@ -220,7 +221,7 @@ class ViewController: UIViewController {
             //            make.top.equalTo(titleLabel.snp.bottom).offset(54)
             make.leading.equalTo(lettersTextView).inset(8)
             make.trailing.equalTo(lettersTextView).inset(260)
-            make.top.equalTo(lettersTextView.snp.top).inset(7)// TODO: пофиксить высоту
+            make.top.equalTo(lettersTextView.snp.top).inset(7)
             make.bottom.equalTo(lettersTextView.snp.bottom).inset(7)
             make.width.equalTo(75)
             make.height.equalTo(22)
@@ -355,28 +356,26 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
-//    let set = CharacterSet.
+//    func validateField(enteredString:String) -> Bool {
+//
+//        let validationFormat = "[a-zA-Z\\s]+"
+//        let fieldPredicate = NSPredicate(format:"SELF MATCHES %@", validationFormat)
+//        return fieldPredicate.evaluate(with: enteredString)
+//    }
+//
+//    if !validateField(enteredString: textField.text ?? "") {
+//
+//        print("Invalid String")
+//        return false
+//    }
     
-//    func textField(_ textField: lettersTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if let x = string.rangeOfCharacter(from: NSCharacterSet.letters) {
-//                return true
-//            } else {
-//                return false
-//            }
-//        }
-    func printing() {
-        print(Constants.LabelsTexts.noDigitLabelText)
-    }
-//    не могу распечатать текст из enum
-//    а мне это надо для того, чтобы попрактиоваться печатать текст из филда
-    
-    
-    
+
     
     
 }
+//MARK: exntesnions
 
-//MARK: constants
+//constants
 extension ViewController {
     enum Constants {
         enum LabelsSettings {
@@ -425,16 +424,57 @@ extension ViewController {
     }
 }
 
-extension NSAttributedString {
-    func withLineSpacing(_ spacing: CGFloat) -> NSAttributedString {
-        let attributedString = NSMutableAttributedString(attributedString: self)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byTruncatingTail
-        paragraphStyle.lineSpacing = spacing
-        attributedString.addAttribute(.paragraphStyle,
-                                      value: paragraphStyle,
-                                      range: NSRange(location: 0, length: string.count))
-        return NSAttributedString(attributedString: attributedString)
+extension ViewController: UITextFieldDelegate {
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let lettersTF = lettersTextField
+        print(lettersTF)
+        return true
     }
+    пересмотреть ещераз урок и сделать клавиутуру ввода. чтобы были ентре и тп\
+    
+//    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        switch textField {
+//        case case: letterValidator.hasLetters(text: string)
+//        default: break
+//        }
+//        return true
+//    }
+    
+    // texfield 1 - text validation
+    struct Validator {
+        let letterValidator = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ"
+        
+        func hasLetters(text: String) -> Bool {
+            for letter in letterValidator {
+                if text.contains(letter) { return true }
+            }
+            return false
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //extension NSAttributedString {
+    //    func withLineSpacing(_ spacing: CGFloat) -> NSAttributedString {
+    //        let attributedString = NSMutableAttributedString(attributedString: self)
+    //        let paragraphStyle = NSMutableParagraphStyle()
+    //        paragraphStyle.lineBreakMode = .byTruncatingTail
+    //        paragraphStyle.lineSpacing = spacing
+    //        attributedString.addAttribute(.paragraphStyle,
+    //                                      value: paragraphStyle,
+    //                                      range: NSRange(location: 0, length: string.count))
+    //        return NSAttributedString(attributedString: attributedString)
+    //    }
+    //}
+    
+    //    не могу распечатать текст из enum
+    //    а мне это надо для того, чтобы попрактиоваться печатать текст из филда
+    //    вообщем надо посмотреть код сверху.
+    
+    
+    
 }
-
