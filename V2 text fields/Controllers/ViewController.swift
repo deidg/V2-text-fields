@@ -10,7 +10,8 @@ import SnapKit
 
 class ViewController: UIViewController {
     var digitCounter: Int = 0
-    var letterValidator = Validator()
+    private lazy var regex = "^(?=.*[a-z])(?=.*[A-Z])$"
+    //    var letterValidator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,6 @@ class ViewController: UIViewController {
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-        var validator = Validator()
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -68,8 +68,8 @@ class ViewController: UIViewController {
         lettersTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         lettersTextField.font = Constants.TextFields.textFieldFont
         lettersTextField.isEnabled = true
-//        lettersTextField.keyboardType = UIKeyboardType.numberPad
-       
+        //        lettersTextField.keyboardType = UIKeyboardType.numberPad
+        
         lettersTextField.keyboardType = .alphabet
         lettersTextField.becomeFirstResponder()
         
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
     }()
     
     //MARK:  2 field 2
-//    https://stackoverflow.com/questions/31363216/set-the-maximum-character-length-of-a-uitextfield-in-swift
+    //    https://stackoverflow.com/questions/31363216/set-the-maximum-character-length-of-a-uitextfield-in-swift
     let inputLimitLabel: UILabel = {
         let inputLimitLabel = UILabel()
         inputLimitLabel.text = Constants.LabelsTexts.inputLimitLabelText
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         limitTextField.textColor = Constants.TextFields.textFieldTextColor
         limitTextField.font = Constants.TextFields.textFieldFont
         
-
+        
         return limitTextField
     }()
     
@@ -198,7 +198,7 @@ class ViewController: UIViewController {
         return validationRulesLabel
     }()
     
- 
+    
     private func setupItemsOnView() {
         //  Textlabel
         view.addSubview(titleLabel)
@@ -233,7 +233,7 @@ class ViewController: UIViewController {
             make.width.equalTo(75)
             make.height.equalTo(22)
         }
-       
+        
         // 2 field 2
         view.addSubview(inputLimitLabel)
         inputLimitLabel.snp.makeConstraints{ make in
@@ -267,7 +267,7 @@ class ViewController: UIViewController {
             //            make.width.equalTo(75)
             //            make.height.equalTo(22)
         }
-    
+        
         // 3 field 3
         view.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
@@ -294,7 +294,7 @@ class ViewController: UIViewController {
             make.width.equalTo(200)  //123
             make.height.equalTo(22)
         }
-      
+        
         // 4 field 4 LINK
         view.addSubview(linkLabel)
         linkLabel.snp.makeConstraints{ make in
@@ -322,7 +322,7 @@ class ViewController: UIViewController {
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-     
+        
         // 5 field 5  PASSWORDS
         view.addSubview(validationLabel)
         validationLabel.snp.makeConstraints{ make in
@@ -363,23 +363,19 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
-//    func validateField(enteredString:String) -> Bool {
-//
-//        let validationFormat = "[a-zA-Z\\s]+"
-//        let fieldPredicate = NSPredicate(format:"SELF MATCHES %@", validationFormat)
-//        return fieldPredicate.evaluate(with: enteredString)
-//    }
-//
-//    if !validateField(enteredString: textField.text ?? "") {
-//
-//        print("Invalid String")
-//        return false
-//    }
     
-
+    
+    
     
     
 }
+
+
+
+
+
+
+
 //MARK: exntesnions
 
 //constants
@@ -432,55 +428,20 @@ extension ViewController {
 }
 
 extension ViewController: UITextFieldDelegate {
-   
-    func textFieldShouldReturn(_ lettersTextField: UITextField) -> Bool {
-        lettersTextField.resignFirstResponder()
-        return true
-    }
- 
+    
+    
+    
     func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        switch textField {
-        case lettersTextField:
-            letterValidator.hasLetters(text: string)
-        default: break
-        }
-        return true
+        return (string.containsValidCharacter)
     }
     
-    // texfield 1 - text validation
-    struct Validator {
-        let letterValidator = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ"
-        
-        func hasLetters(text: String) -> Bool {
-            for letter in letterValidator {
-                if text.contains(letter) { return true }
-            }
-            return false
-        }
+}
+
+extension String {
+    var containsValidCharacter: Bool {
+        guard self != "" else { return true }
+        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
+        let newSet = CharacterSet(charactersIn: self)
+        return hexSet.isSuperset(of: newSet)
     }
-    
-    
-    
-    
-    
-    
-    //extension NSAttributedString {
-    //    func withLineSpacing(_ spacing: CGFloat) -> NSAttributedString {
-    //        let attributedString = NSMutableAttributedString(attributedString: self)
-    //        let paragraphStyle = NSMutableParagraphStyle()
-    //        paragraphStyle.lineBreakMode = .byTruncatingTail
-    //        paragraphStyle.lineSpacing = spacing
-    //        attributedString.addAttribute(.paragraphStyle,
-    //                                      value: paragraphStyle,
-    //                                      range: NSRange(location: 0, length: string.count))
-    //        return NSAttributedString(attributedString: attributedString)
-    //    }
-    //}
-    
-    //    не могу распечатать текст из enum
-    //    а мне это надо для того, чтобы попрактиоваться печатать текст из филда
-    //    вообщем надо посмотреть код сверху.
-    
-    
-    
 }
