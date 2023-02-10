@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     let charactersCounter: UILabel = {
         let charactersCounter = UILabel()
         charactersCounter.backgroundColor = .white
-        charactersCounter.text = Constants.LabelsTexts.charactersCounterText
+//        charactersCounter.text = Constants.LabelsTexts.charactersCounterText
         charactersCounter.textAlignment = .right
         charactersCounter.textColor = Constants.LabelsTexts.smallLabelTextColor
         charactersCounter.font = Constants.LabelsFonts.smallLabelFont
@@ -394,7 +394,7 @@ extension ViewController {
             static let mainTitleLabeText = "Text Fields"
             static let noDigitLabelText = "NO digit field"
             static let inputLimitLabelText = "Input limit"
-            static let charactersCounterText = "5/10"
+//            static let charactersCounterText = "5/10"
             static let onlyCharectersLabelText = "Only characters"
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
@@ -430,9 +430,20 @@ extension ViewController {
 extension ViewController: UITextFieldDelegate {
     
     
+    //textfield 1
+    //    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //        return (string.containsValidCharacter)
+    //    }
     
-    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return (string.containsValidCharacter)
+    //textfield 2
+    func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = limitTextField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        var counter = updatedText
+        let charactersCounter = "\(counter)/5 "
+        return updatedText.count <= 5
     }
     
 }
