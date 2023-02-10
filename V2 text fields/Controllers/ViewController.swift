@@ -9,10 +9,12 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
-    var digitCounter: Int = 0
-    private lazy var regex = "^(?=.*[a-z])(?=.*[A-Z])$"
-    //    var letterValidator = Validator()
-    var charCounter: Int = 0
+    var digitCounter: Int = 0  //TODO: private?
+    var charCounter: Int = 0   //TODO: private?
+    private let maxСharacterNumber = 10
+    
+    private lazy var regex = "^   (?=.*[a-zA-z]{5})  (?=.*[0-9]{5}    $"
+    
     
     
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class ViewController: UIViewController {
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
+        
+//        private func checkValidation()
         
         
         let paragraph = NSMutableParagraphStyle()
@@ -438,15 +442,32 @@ extension ViewController: UITextFieldDelegate {
     //    }
     
     //textfield 2
-    func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = limitTextField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        charCounter = updatedText.count
-        charactersCounter.text = "\(charCounter)/10"
-        return updatedText.count < 10
-    }
+//    func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        let currentText = limitTextField.text ?? ""
+//        guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+//        charCounter = updatedText.count
+//        charactersCounter.text = "\(charCounter)/10"
+//        return updatedText.count < 10
+//    }
+    
+   // textfield 3
+        func textField(_ characterTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let fullString = (characterTextField.text ?? "") + string
+            let res: String
+            
+            if range.length == 1 {
+                let end = text.index(text.startIndex, offsetBy: text.count - 1)
+                res = String(text[text.startIndex..<end])
+            } else {
+                res = text
+            }
+            
+            characterTextField.text = res
+            return false
+        }
+
     
 }
 
@@ -457,4 +478,8 @@ extension String {
         let newSet = CharacterSet(charactersIn: self)
         return hexSet.isSuperset(of: newSet)
     }
+}
+// textfield 3
+    func characters(_ regex: String) -> Bool {
+        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
 }
