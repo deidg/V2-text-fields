@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     var digitCounter: Int = 0
     private lazy var regex = "^(?=.*[a-z])(?=.*[A-Z])$"
     //    var letterValidator = Validator()
+    var charCounter: Int = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,10 +88,10 @@ class ViewController: UIViewController {
         inputLimitLabel.font = Constants.LabelsFonts.smallLabelFont
         return inputLimitLabel
     }()
-    let charactersCounter: UILabel = {
+    var charactersCounter: UILabel = {
         let charactersCounter = UILabel()
         charactersCounter.backgroundColor = .white
-//        charactersCounter.text = Constants.LabelsTexts.charactersCounterText
+//        charactersCounter.text = "\(charCounter)/5" //Constants.LabelsTexts.charactersCounterText
         charactersCounter.textAlignment = .right
         charactersCounter.textColor = Constants.LabelsTexts.smallLabelTextColor
         charactersCounter.font = Constants.LabelsFonts.smallLabelFont
@@ -394,7 +396,7 @@ extension ViewController {
             static let mainTitleLabeText = "Text Fields"
             static let noDigitLabelText = "NO digit field"
             static let inputLimitLabelText = "Input limit"
-//            static let charactersCounterText = "5/10"
+//            static let charactersCounterText = "\(charCounter)/5" //"5/10"
             static let onlyCharectersLabelText = "Only characters"
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
@@ -441,9 +443,9 @@ extension ViewController: UITextFieldDelegate {
         guard let stringRange = Range(range, in: currentText) else { return false }
         
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        var counter = updatedText
-        let charactersCounter = "\(counter)/5 "
-        return updatedText.count <= 5
+        charCounter = updatedText.count
+        charactersCounter.text = "\(charCounter)/10"
+        return updatedText.count < 10
     }
     
 }
