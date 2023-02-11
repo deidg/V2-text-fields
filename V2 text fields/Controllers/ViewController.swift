@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
+    
     private lazy var regex = "^(?=.*[a-zA-z]{5})(?=.*[0-9]{5}$"
     
     
@@ -437,7 +438,7 @@ extension ViewController: UITextFieldDelegate {
     
     
     //textfield 1
-    //    func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //        return (string.containsValidCharacter)
     //    }
     
@@ -453,30 +454,31 @@ extension ViewController: UITextFieldDelegate {
     //    }
     
     // textfield 3
-    func textField(_ characterTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if (characterTextField.text!.isValid)
-        {
-            print("ok")
-        } else
-        {
-            //            let fullString = (characterTextField.text ?? "") + string
-            //            let res: String
-            //
-            //            if range.length == 1 {
-            //                let end = fullString.index(fullString.startIndex, offsetBy: fullString.count - 1)
-            //                res = String(fullString[fullString.startIndex..<end])
-            //            } else {
-            //                res = fullString
-            //            }
-            //
-            //            characterTextField.text = res
-            return false
-        }
+//    func textField(_ characterTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if (characterTextField.text!.isValid)
+//        {
+//            print("ok")
+//        } else
+//        {
+//            //            let fullString = (characterTextField.text ?? "") + string
+//            //            let res: String
+//            //
+//            //            if range.length == 1 {
+//            //                let end = fullString.index(fullString.startIndex, offsetBy: fullString.count - 1)
+//            //                res = String(fullString[fullString.startIndex..<end])
+//            //            } else {
+//            //                res = fullString
+//            //            }
+//            //
+//            //            characterTextField.text = res
+//            return false
+//        }
         
         
     }
     
     extension String {
+//        textfiled1
         var containsValidCharacter: Bool {
             guard self != "" else { return true }
             let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
@@ -486,13 +488,36 @@ extension ViewController: UITextFieldDelegate {
         
         // textfield 3
         
-        var isValid: Bool {
-            do {
-                let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
-                return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
-            } catch {
-                return false
-            }
-        }
+        let usernamePattern = #"^[a-zA-Z-]+ ?.* [a-zA-Z-]+$"#
+
+        var result = "FirstName LastName".ranges(
+            of: usernamePattern,
+            option: .regularExpression
+        )
+          
+        var validUsername = (result != nil)
+        
+        let nameRegex = try! NSRegularExpression(pattern: usernamePattern, options: []
+        )
+        
+        let source = "FirstName LastName"
+        let sourceRange = NSRange(
+            source.startIndex..<source.endIndex,
+            in: source
+        )
+        
+        var result = nameRegex.matches(in: source, options: [], range: sourceRange)
+        
+        let validUserName = (result != nil)
+        
+        
+//        var isValid: Bool {
+//            do {
+//                let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
+//                return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
+//            } catch {
+//                return false
+//            }
+//        }
     }
-}    // посмотреть еще раз регулярные выражения и брать их за основу. 12мин. 
+//}    // посмотреть еще раз регулярные выражения и брать их за основу. 12мин.
