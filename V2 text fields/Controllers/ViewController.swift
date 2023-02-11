@@ -434,7 +434,7 @@ extension ViewController {
 
 extension ViewController: UITextFieldDelegate {
     
-    enum TextFieldtype {
+    enum TextFieldType {
         case onlyLettersTF
         case limitTF
         case onlyCharacterTF
@@ -451,11 +451,11 @@ extension ViewController: UITextFieldDelegate {
         case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     }
     
-    func isValid(_ ValidityType: ValityType) -> Bool {
+    func isValid(_ TextFieldType: TextFieldType) -> Bool {
         let format = "SELF MATCHES %@"
         var regex = ""
         
-        switch ValidityType {
+        switch TextFieldType {
         case .onlyLettersTF:
             regex = Regex.age.rawValue
         case .limitTF:
