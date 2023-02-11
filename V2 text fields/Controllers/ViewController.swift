@@ -434,6 +434,56 @@ extension ViewController {
 
 extension ViewController: UITextFieldDelegate {
     
+    enum TextFieldtype {
+        case onlyLettersTF
+        case limitTF
+        case onlyCharacterTF
+        case linkTF
+        case passwordTF
+    }
+    
+    
+    enum Regex: String {
+        case onlyLetters = "[a-zA-Z]"
+        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
+        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
+        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
+    }
+    
+    func isValid(_ ValidityType: ValityType) -> Bool {
+        let format = "SELF MATCHES %@"
+        var regex = ""
+        
+        switch ValidityType {
+        case .onlyLettersTF:
+            regex = Regex.age.rawValue
+        case .limitTF:
+            regex = Regex.email.rawValue
+        case .onlyCharacterTF:
+            regex = Regex.password.rawValue
+        case .linkTF:
+            regex = Regex.website.rawValue
+        case .passwordTF:
+            regex = Regex.website.rawValue
+        }
+        
+        return NSPredicate(format: format, regex).evaluate(with: self)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 //    textfield 1  DONE
 //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
