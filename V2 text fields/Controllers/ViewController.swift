@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     var charactersCounter: UILabel = {
         let charactersCounter = UILabel()
         charactersCounter.backgroundColor = .white
-        //        charactersCounter.text = "\(charCounter)/5" //Constants.LabelsTexts.charactersCounterText
+//                charactersCounter.text = "\(charCounter)/10" //Constants.LabelsTexts.charactersCounterText
         charactersCounter.textAlignment = .right
         charactersCounter.textColor = Constants.LabelsTexts.smallLabelTextColor
         charactersCounter.font = Constants.LabelsFonts.smallLabelFont
@@ -382,7 +382,6 @@ class ViewController: UIViewController {
 
 
 
-
 //MARK: exntesnions
 
 //constants
@@ -401,7 +400,6 @@ extension ViewController {
             static let mainTitleLabeText = "Text Fields"
             static let noDigitLabelText = "NO digit field"
             static let inputLimitLabelText = "Input limit"
-            //            static let charactersCounterText = "\(charCounter)/5" //"5/10"
             static let onlyCharectersLabelText = "Only characters"
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
@@ -437,23 +435,23 @@ extension ViewController {
 extension ViewController: UITextFieldDelegate {
     
     
-    //textfield 1  DONE
-    //        func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //        return (string.containsValidCharacter)
-    //    }
+//    textfield 1  DONE
+//            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//            return (string.containsValidCharacter)
+//        }
     
-    //textfield 2  DONE
-    //    func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //        let currentText = limitTextField.text ?? ""
-    //        guard let stringRange = Range(range, in: currentText) else { return false }
-    //
-    //        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    //        charCounter = updatedText.count
-    //        charactersCounter.text = "\(charCounter)/10"
-    //        return updatedText.count < 10
-    //    }
+//    textfield 2  DONE
+        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let currentText = limitTextField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+            charCounter = updatedText.count
+            charactersCounter.text = "\(charCounter)/10"
+            return updatedText.count < 10
+        }
     
-    // textfield 3   NOT DONE
+    // textfield 3   NOT DONE    когда вернешься посмотри код в фигме. там подсказка attributed string
     // написал по этому видео от свифтбук - https://www.youtube.com/watch?v=EYo5V0JPFPY&t=163s
 //    func textField(_ characterTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 //        let text = (characterTextField.text ?? "") + string
@@ -474,6 +472,9 @@ extension ViewController: UITextFieldDelegate {
     
     //textfield4
     
+    // textfield 4   LINK
+    
+    
    
 }
 
@@ -487,14 +488,10 @@ extension String {
     }
     
     // textfield 3
-    
-    func matches(_ regex: String) -> Bool{
-        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
-        
-    }
-    
-    
-    
+    //    func matches(_ regex: String) -> Bool{
+    //        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
+    //
+    //    }
     //        var result = "FirstName LastName".ranges(
     //            of: usernamePattern,
     //            option: .regularExpression
@@ -524,5 +521,17 @@ extension String {
     //                return false
     //            }
     //        }
-}
+    
+    // textfield 4
+//    extension String {
+//        var isValidUrl: Bool {
+//            let urlRegEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+//            return NSPredicate(format: "SELF MATCHES %@", urlRegEx).evaluate(with: self)
+//        }
+//
+        
+        
+        
+    }
+
 //}    // посмотреть еще раз регулярные выражения и брать их за основу. 12мин.
