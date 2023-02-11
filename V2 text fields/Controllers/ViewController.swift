@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     private let maxСharacterNumber = 10
     
     
-//    private lazy var regex = "^(?=.*[a-zA-z]{5})(?=.*[0-9]{5}$"
+    //    private lazy var regex = "^(?=.*[a-zA-z]{5})(?=.*[0-9]{5}$"
     //    let usernamePattern = "^(?=.*[a-zA-Z])+ [a-zA-Z]{5,5}$"
     
     
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     var charactersCounter: UILabel = {
         let charactersCounter = UILabel()
         charactersCounter.backgroundColor = .white
-//                charactersCounter.text = "\(charCounter)/10" //Constants.LabelsTexts.charactersCounterText
+        //                charactersCounter.text = "\(charCounter)/10" //Constants.LabelsTexts.charactersCounterText
         charactersCounter.textAlignment = .right
         charactersCounter.textColor = Constants.LabelsTexts.smallLabelTextColor
         charactersCounter.font = Constants.LabelsFonts.smallLabelFont
@@ -370,15 +370,13 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
-    
-    
-    
-    
-    
 }
 
+//print(lettersTextField.text)
 
-
+//func textFieldDidBeginEditing(_ lettersTextField: TextField) {
+//    print("lettersTextField id editing now")
+//}
 
 
 
@@ -430,6 +428,11 @@ extension ViewController {
             static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
         }
     }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        view.endEditing(true)
+//    }
+    
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -441,7 +444,6 @@ extension ViewController: UITextFieldDelegate {
         case linkTF
         case passwordTF
     }
-    
     
     enum Regex: String {
         case onlyLetters = "[a-zA-Z]"
@@ -457,20 +459,68 @@ extension ViewController: UITextFieldDelegate {
         
         switch TextFieldType {
         case .onlyLettersTF:
-            regex = Regex.age.rawValue
+            regex = Regex.onlyLetters.rawValue
         case .limitTF:
-            regex = Regex.email.rawValue
+            regex = Regex.limit.rawValue
         case .onlyCharacterTF:
-            regex = Regex.password.rawValue
+            regex = Regex.onlyCharacter.rawValue
         case .linkTF:
-            regex = Regex.website.rawValue
+            regex = Regex.link.rawValue
         case .passwordTF:
-            regex = Regex.website.rawValue
+            regex = Regex.password.rawValue
         }
         
         return NSPredicate(format: format, regex).evaluate(with: self)
     }
     
+    //    func handleTextChange(_ TextFieldType: TextFieldType) { //@objc
+    
+    
+    
+    //        func textFieldDidEndEditing(_ textField: UITextField) {
+    //            <#code#>
+    //        }
+    
+    //        switch TextFieldType {
+    //        case .onlyLettersTF:
+    //            lettersTextField.isEnabled = true
+    //            limitTextField.isEnabled = false
+    //            characterTextField.isEnabled = false
+    //            linkTextField.isEnabled = false
+    //            passwordTextField.isEnabled = false
+    //        case .limitTF:
+    //            lettersTextField.isEnabled = false
+    //            limitTextField.isEnabled = true
+    //            characterTextField.isEnabled = false
+    //            linkTextField.isEnabled = false
+    //            passwordTextField.isEnabled = false
+    //        default: print("print default value")
+    //        }
+    //    }
+    //        case .onlyCharacterTF:
+    //
+    //        case .linkTF:
+    //
+    //        case .passwordTF:
+    //
+    //    }
+    //    }
+    
+    //    textfield 1  DONE
+    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            return (string.containsValidCharacter)
+    //        }
+    
+    //    textfield 2  DONE
+    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            let currentText = limitTextField.text ?? ""
+    //            guard let stringRange = Range(range, in: currentText) else { return false }
+    //
+    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    //            charCounter = updatedText.count
+    //            charactersCounter.text = "\(charCounter)/10"
+    //            return updatedText.count < 10
+    //        }
     
     
     
@@ -478,56 +528,7 @@ extension ViewController: UITextFieldDelegate {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-//    textfield 1  DONE
-//            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//            return (string.containsValidCharacter)
-//        }
-    
-//    textfield 2  DONE
-        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            let currentText = limitTextField.text ?? ""
-            guard let stringRange = Range(range, in: currentText) else { return false }
-
-            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-            charCounter = updatedText.count
-            charactersCounter.text = "\(charCounter)/10"
-            return updatedText.count < 10
-        }
-    
-    // textfield 3   NOT DONE    когда вернешься посмотри код в фигме. там подсказка attributed string
-    // написал по этому видео от свифтбук - https://www.youtube.com/watch?v=EYo5V0JPFPY&t=163s
-//    func textField(_ characterTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        let text = (characterTextField.text ?? "") + string
-//
-//        let res: String
-//
-//        if range.length == 1 {
-//            let end = text.index(text.startIndex, offsetBy: text.count - 1)
-//            res = String(text[text.startIndex..<end])
-//        } else {
-//            res = text
-//        }
-//
-//
-//        characterTextField.text = res
-//        return false
-//    }
-    
-    //textfield4
-    
-    // textfield 4   LINK
-    
-    
-   
 }
-
 extension String {
     //        textfiled1
     var containsValidCharacter: Bool {
@@ -536,52 +537,4 @@ extension String {
         let newSet = CharacterSet(charactersIn: self)
         return hexSet.isSuperset(of: newSet)
     }
-    
-    // textfield 3
-    //    func matches(_ regex: String) -> Bool{
-    //        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
-    //
-    //    }
-    //        var result = "FirstName LastName".ranges(
-    //            of: usernamePattern,
-    //            option: .regularExpression
-    //        )
-    //
-    //        var validUsername = (result != nil)
-    //
-    //        let nameRegex = try! NSRegularExpression(pattern: usernamePattern, options: []
-    //        )
-    //
-    //        let source = "FirstName LastName"
-    //        let sourceRange = NSRange(
-    //            source.startIndex..<source.endIndex,
-    //            in: source
-    //        )
-    //
-    //        var result = nameRegex.matches(in: source, options: [], range: sourceRange)
-    //
-    //        let validUserName = (result != nil)
-    
-    
-    //        var isValid: Bool {
-    //            do {
-    //                let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
-    //                return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
-    //            } catch {
-    //                return false
-    //            }
-    //        }
-    
-    // textfield 4
-//    extension String {
-//        var isValidUrl: Bool {
-//            let urlRegEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-//            return NSPredicate(format: "SELF MATCHES %@", urlRegEx).evaluate(with: self)
-//        }
-//
-        
-        
-        
-    }
-
-//}    // посмотреть еще раз регулярные выражения и брать их за основу. 12мин.
+}
