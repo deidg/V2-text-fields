@@ -5,6 +5,9 @@
 //  Created by Alex on 07.02.2023.
 //
 
+// подумать как управлять состояниями и тексфилдами.
+//7мин
+
 import UIKit
 import SnapKit
 
@@ -13,9 +16,16 @@ class ViewController: UIViewController {
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
-    
-    //    private lazy var regex = "^(?=.*[a-zA-z]{5})(?=.*[0-9]{5}$"
-    //    let usernamePattern = "^(?=.*[a-zA-Z])+ [a-zA-Z]{5,5}$"
+    var TextFieldType: TextFieldType = .onlyLettersTF {
+        didSet {
+            print("its from str18)")
+        }
+    }
+//    var mode: Mode = .defaultMode {
+//        didSet {
+//            applyState(state, mode)
+//        }
+//    }
     
     
     override func viewDidLoad() {
@@ -28,6 +38,10 @@ class ViewController: UIViewController {
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
+        
+//        func printing () {
+//            print("\(lettersTextField.text ?? "") its from there")
+//        }
         
         //        private func checkValidation()
         
@@ -369,14 +383,16 @@ class ViewController: UIViewController {
     func defaultConfiguration() {
         self.view.backgroundColor = .white
     }
+  
     
-}
+    
+//     func textFieldDidBeginEditing(_ lettersTextField: lettersTextField) {
+//        print("lettersTextField id editing now")
+//    }
+    
+}   // end of the ViewController
 
-//print(lettersTextField.text)
 
-//func textFieldDidBeginEditing(_ lettersTextField: TextField) {
-//    print("lettersTextField id editing now")
-//}
 
 
 
@@ -521,13 +537,7 @@ extension ViewController: UITextFieldDelegate {
     //            charactersCounter.text = "\(charCounter)/10"
     //            return updatedText.count < 10
     //        }
-    
-    
-    
-    
-    
-    
-    
+  
 }
 extension String {
     //        textfiled1
