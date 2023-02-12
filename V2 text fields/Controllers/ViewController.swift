@@ -22,8 +22,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //        }
 //    }
 
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupItemsOnView()
@@ -41,12 +40,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         //        private func checkValidation()
         
-        
-        
-        
-        
-        
-        
+      
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -55,9 +49,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         validationRulesLabel.attributedText = attributedString
         
     }
-
-    
-    
+  
     
 //    func setupTextBehavior() {
 //        lettersTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -400,20 +392,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
   
-    
-    
+
 //     func textFieldDidBeginEditing(_ lettersTextField: lettersTextField) {
 //        print("lettersTextField id editing now")
 //    }
     
 }   // end of the ViewController
-
-
-
-
-
-
-
 
 
 //MARK: exntesnions
