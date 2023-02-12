@@ -448,7 +448,16 @@ extension ViewController {
     
 }
 
-//extension ViewController: UITextFieldDelegate {
+extension ViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        <#code#>if textField == tf1 {
+            tF1
+        } else
+            
+            
+    }
+    
+}
     
 extension String {
     
@@ -487,6 +496,11 @@ extension String {
         default:
             print("mistake")
         }
+        
+        
+        
+        
+        
         
         return NSPredicate(format: format, regex).evaluate(with: self)
     }
