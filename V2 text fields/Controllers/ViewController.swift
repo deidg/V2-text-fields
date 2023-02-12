@@ -11,18 +11,18 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
-    var textFieldType: TextFieldType = .onlyLettersTF
+    var textFieldType: String.TextFieldType = .onlyLettersTF
 //    var TextFieldType: TextFieldType = .onlyLettersTF {
 //        didSet {
 //            isValid(onlyLettersTF)
 //        }
 //    }
-
+//    let validityType: String.ValityType = .email
     
     
     override func viewDidLoad() {
@@ -43,6 +43,12 @@ class ViewController: UIViewController {
         //        private func checkValidation()
         
         
+        
+        
+        
+        
+        
+        
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
         let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
@@ -50,6 +56,20 @@ class ViewController: UIViewController {
         validationRulesLabel.attributedText = attributedString
         
     }
+
+    
+    
+    
+//    func setupTextBehavior() {
+//        lettersTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        limitTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        characterTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        linkTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+//    }
+    
+    
+    
     
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -389,6 +409,13 @@ class ViewController: UIViewController {
     
 }   // end of the ViewController
 
+//@objc func textFieldChosen(sender: UITextField) {
+    
+//}
+
+
+
+
 
 
 
@@ -448,8 +475,10 @@ extension ViewController {
     
 }
 
-extension ViewController: UITextFieldDelegate {
+//extension ViewController: UITextFieldDelegate {
     
+extension String {
+
     enum TextFieldType {
         case onlyLettersTF
         case limitTF
@@ -460,28 +489,30 @@ extension ViewController: UITextFieldDelegate {
     
     enum Regex: String {
         case onlyLetters = "[a-zA-Z]"
-        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
-        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
-        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
+//        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
+//        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
+//        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+//        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     }
     
-    func isValid(_ TextFieldType: TextFieldType) -> Bool {
+    func isValid(_ textFieldType: TextFieldType) -> Bool {
         let format = "SELF MATCHES %@"
         var regex = ""
         
-        switch TextFieldType {
+        switch textFieldType {
         case .onlyLettersTF:
             regex = Regex.onlyLetters.rawValue
-            lettersTextField.text = regex
-        case .limitTF:
-            regex = Regex.limit.rawValue
-        case .onlyCharacterTF:
-            regex = Regex.onlyCharacter.rawValue
-        case .linkTF:
-            regex = Regex.link.rawValue
-        case .passwordTF:
-            regex = Regex.password.rawValue
+//            lettersTextField.text = Regex.onlyLetters.rawValue
+//        case .limitTF:
+//            regex = Regex.limit.rawValue
+//        case .onlyCharacterTF:
+//            regex = Regex.onlyCharacter.rawValue
+//        case .linkTF:
+//            regex = Regex.link.rawValue
+//        case .passwordTF:
+//            regex = Regex.password.rawValue
+        default:
+            print("mistake")
         }
         
         return NSPredicate(format: format, regex).evaluate(with: self)
@@ -537,12 +568,21 @@ extension ViewController: UITextFieldDelegate {
     //        }
   
 }
-extension String {
+//extension String {
     //        textfiled1
-    var containsValidCharacter: Bool {
-        guard self != "" else { return true }
-        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
-        let newSet = CharacterSet(charactersIn: self)
-        return hexSet.isSuperset(of: newSet)
-    }
-}
+//    var containsValidCharacter: Bool {
+//        guard self != "" else { return true }
+//        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
+//        let newSet = CharacterSet(charactersIn: self)
+//        return hexSet.isSuperset(of: newSet)
+//    }
+//}
+
+
+/*   list of textfields
+lettersTextField
+limitTextField
+characterTextField
+linkTextField
+passwordTextField
+*/
