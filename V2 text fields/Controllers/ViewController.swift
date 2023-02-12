@@ -5,7 +5,6 @@
 //  Created by Alex on 07.02.2023.
 //
 
-// подумать как управлять состояниями и тексфилдами.
 //
 
 import UIKit
@@ -22,7 +21,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //            isValid(onlyLettersTF)
 //        }
 //    }
-//    let validityType: String.ValityType = .email
+
     
     
     override func viewDidLoad() {
@@ -478,7 +477,7 @@ extension String {
     }
     
     enum Regex: String {
-        case onlyLetters = "[a-zA-Z]{1, 100}"
+        case onlyLetters = "[a-zA-Z]"  //{1, 100}"
         //        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
         //        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
         //        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
@@ -507,7 +506,14 @@ extension String {
         
         return NSPredicate(format: format, regex).evaluate(with: self)
     }
-    
+}
+
+
+
+
+
+
+
     //    func handleTextChange(_ TextFieldType: TextFieldType) { //@objc
     
     
@@ -552,4 +558,4 @@ extension String {
      */
     
     
-}
+//}
