@@ -409,9 +409,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
 }   // end of the ViewController
 
-//@objc func textFieldChosen(sender: UITextField) {
-    
-//}
 
 
 
@@ -442,13 +439,6 @@ extension ViewController {
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
             static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
-            //            validationRules
-            
-            //            Min length 8 characters.\n
-            //            Min 1 digit,\n
-            //            Min 1 lowercase,\n
-            //            Min 1 capital required.\n
-            
             
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
             static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
@@ -478,7 +468,7 @@ extension ViewController {
 //extension ViewController: UITextFieldDelegate {
     
 extension String {
-
+    
     enum TextFieldType {
         case onlyLettersTF
         case limitTF
@@ -488,11 +478,11 @@ extension String {
     }
     
     enum Regex: String {
-        case onlyLetters = "[a-zA-Z]"
-//        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
-//        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
-//        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-//        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
+        case onlyLetters = "[a-zA-Z]{1, 100}"
+        //        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
+        //        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
+        //        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+        //        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     }
     
     func isValid(_ textFieldType: TextFieldType) -> Bool {
@@ -502,15 +492,15 @@ extension String {
         switch textFieldType {
         case .onlyLettersTF:
             regex = Regex.onlyLetters.rawValue
-//            lettersTextField.text = Regex.onlyLetters.rawValue
-//        case .limitTF:
-//            regex = Regex.limit.rawValue
-//        case .onlyCharacterTF:
-//            regex = Regex.onlyCharacter.rawValue
-//        case .linkTF:
-//            regex = Regex.link.rawValue
-//        case .passwordTF:
-//            regex = Regex.password.rawValue
+            //            lettersTextField.text = Regex.onlyLetters.rawValue
+            //        case .limitTF:
+            //            regex = Regex.limit.rawValue
+            //        case .onlyCharacterTF:
+            //            regex = Regex.onlyCharacter.rawValue
+            //        case .linkTF:
+            //            regex = Regex.link.rawValue
+            //        case .passwordTF:
+            //            regex = Regex.password.rawValue
         default:
             print("mistake")
         }
@@ -551,38 +541,15 @@ extension String {
     //    }
     //    }
     
-    //    textfield 1  DONE
-    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            return (string.containsValidCharacter)
-    //        }
     
-    //    textfield 2  DONE
-    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            let currentText = limitTextField.text ?? ""
-    //            guard let stringRange = Range(range, in: currentText) else { return false }
-    //
-    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    //            charCounter = updatedText.count
-    //            charactersCounter.text = "\(charCounter)/10"
-    //            return updatedText.count < 10
-    //        }
-  
+    
+    /*   list of textfields
+     lettersTextField
+     limitTextField
+     characterTextField
+     linkTextField
+     passwordTextField
+     */
+    
+    
 }
-//extension String {
-    //        textfiled1
-//    var containsValidCharacter: Bool {
-//        guard self != "" else { return true }
-//        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
-//        let newSet = CharacterSet(charactersIn: self)
-//        return hexSet.isSuperset(of: newSet)
-//    }
-//}
-
-
-/*   list of textfields
-lettersTextField
-limitTextField
-characterTextField
-linkTextField
-passwordTextField
-*/
