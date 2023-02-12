@@ -6,7 +6,7 @@
 //
 
 // подумать как управлять состояниями и тексфилдами.
-//7мин
+//
 
 import UIKit
 import SnapKit
@@ -16,16 +16,13 @@ class ViewController: UIViewController {
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
-    var TextFieldType: TextFieldType = .onlyLettersTF {
-        didSet {
-            print("its from str18)")
-        }
-    }
-//    var mode: Mode = .defaultMode {
+    var textFieldType: TextFieldType = .onlyLettersTF
+//    var TextFieldType: TextFieldType = .onlyLettersTF {
 //        didSet {
-//            applyState(state, mode)
+//            isValid(onlyLettersTF)
 //        }
 //    }
+
     
     
     override func viewDidLoad() {
@@ -476,6 +473,7 @@ extension ViewController: UITextFieldDelegate {
         switch TextFieldType {
         case .onlyLettersTF:
             regex = Regex.onlyLetters.rawValue
+            lettersTextField.text = regex
         case .limitTF:
             regex = Regex.limit.rawValue
         case .onlyCharacterTF:
