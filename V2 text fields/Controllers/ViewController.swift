@@ -16,7 +16,7 @@ import SafariServices
 //import MaskedUITextField
 //import Veil
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {//,UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
@@ -28,15 +28,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
-        
+        textFieldDidEndEditing(linkTextField)
         
 //        let result = verifyUrl(urlString: linkTextField.text)
 //        let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
 //                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
 
-        let inputLink: String = linkTextField.text ?? ""
-        let result = verifyUrl(urlString: inputLink)
-        print(result)
+//        let inputLink: String = linkTextField.text ?? ""
+//        let result = //verifyUrl(urlString: inputLink)
+//        print(result)
         
         
 //        func textFieldDidEndEditing(_ textField: UITextField)
@@ -436,7 +436,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
 //constants
-extension ViewController {
+extension ViewController: UITextFieldDelegate {
  
     enum Constants {
         enum LabelsSettings {
@@ -482,12 +482,7 @@ extension ViewController {
 //            view.endEditing(true)
 //        }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        
-        
-        
-    }
+    
     //}
     
     
@@ -529,14 +524,29 @@ extension ViewController {
     
     //  4 field 4  LINK
     
-    func verifyUrl (urlString: String?) -> Bool {
-        if let urlString = urlString {
-            if let url = NSURL(string: urlString) {
-                return !UIApplication.shared.canOpenURL(url as URL)
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        let inputLink = linkTextField.text
+        
+        func verifyUrl (urlString: String?) -> Bool {
+            if let urlString = urlString {
+                if let url = NSURL(string: urlString) {
+                    return !UIApplication.shared.canOpenURL(url as URL)
+                }
             }
+            return false
         }
-        return false
+        var verification = verifyUrl(urlString: linkTextField.text)
+        
+        if verification == true {
+            print("link is correct")
+        } else {
+            print("link isNOT correct")
+        }
+        
     }
+    
+    
     
     
 //MARK: keyboard
