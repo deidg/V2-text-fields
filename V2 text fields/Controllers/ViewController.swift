@@ -5,42 +5,55 @@
 //  Created by Alex on 07.02.2023.
 //
 
-//
+
+// TODO: доставать и скрывать клавиатуру
 
 import UIKit
 import SnapKit
+import SafariServices
+
+//import MaskedFormatter
+//import MaskedUITextField
+//import Veil
 
 class ViewController: UIViewController, UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
-    var textFieldType: String.TextFieldType = .onlyLettersTF
-//    var TextFieldType: TextFieldType = .onlyLettersTF {
-//        didSet {
-//            isValid(onlyLettersTF)
-//        }
-//    }
-
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
         
+        
+//        let result = verifyUrl(urlString: linkTextField.text)
+//        let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
+//                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
+
+        let inputLink: String = linkTextField.text ?? ""
+        let result = verifyUrl(urlString: inputLink)
+        print(result)
+        
+        
+//        func textFieldDidEndEditing(_ textField: UITextField)
+        
+        
+
         lettersTextField.delegate = self
         limitTextField.delegate = self
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-//        func printing () {
-//            print("\(lettersTextField.text ?? "") its from there")
-//        }
+
+        //        lettersTextField.addTarget(self,
+        //                            action: #selector(textFieldDidChange(_:)),
+        //                            for: .editingChanged)
         
-        //        private func checkValidation()
-        
-      
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -49,15 +62,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         validationRulesLabel.attributedText = attributedString
         
     }
-  
     
-//    func setupTextBehavior() {
-//        lettersTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//        limitTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//        characterTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//        linkTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-//    }
     
     
     
@@ -102,8 +107,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         lettersTextField.keyboardType = .alphabet
         lettersTextField.becomeFirstResponder()
         
+        
         return lettersTextField
     }()
+    
+    
     
     //MARK:  2 field 2
     //    https://stackoverflow.com/questions/31363216/set-the-maximum-character-length-of-a-uitextfield-in-swift
@@ -189,10 +197,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         linkTextField.placeholder = Constants.TextFields.linkTextFieldPlaceholderText
         linkTextField.textColor = Constants.TextFields.textFieldTextColor
         linkTextField.font = Constants.TextFields.textFieldFont
-        
         return linkTextField
     }()
-    
     
     //MARK:  5 field 5  PASSWORDS
     let validationLabel: UILabel = {
@@ -226,6 +232,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         validationRulesLabel.textColor = Constants.LabelsTexts.validationRulesLabelTextColor
         return validationRulesLabel
     }()
+    
+   
     
     
     private func setupItemsOnView() {
@@ -391,19 +399,45 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func defaultConfiguration() {
         self.view.backgroundColor = .white
     }
-  
-
-//     func textFieldDidBeginEditing(_ lettersTextField: lettersTextField) {
-//        print("lettersTextField id editing now")
-//    }
     
-}   // end of the ViewController
+//    verifyUrl
+
+//
+//
+//    func verifyUrl (urlString: String?) -> Bool {
+//        if let urlString = urlString {
+//            if let url = NSURL(string: urlString) {
+//                return UIApplication.shared.canOpenURL(url as URL)
+//            }
+//        }
+//        return false
+//    }
+//    verifyUrl(urlString)
 
 
-//MARK: exntesnions
+ 
+    
+}
+
+
+
+
+//func verifyUrl (urlString: String?) -> Bool {
+//    if let urlString = urlString {
+//        if let url = NSURL(string: urlString) {
+//            return UIApplication.shared.canOpenURL(url as URL)
+//        }
+//    }
+//    return false
+//}
+//verifyUrl(urlString)
+
+
+
 
 //constants
 extension ViewController {
+ 
     enum Constants {
         enum LabelsSettings {
             static let lettersTextViewCornerRadius: CGFloat = 10
@@ -422,6 +456,8 @@ extension ViewController {
             static let linkLabelText = "Link"
             static let validationLabelText = "Validation rules"
             static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+            
+            
             
             static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
             static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
@@ -442,109 +478,135 @@ extension ViewController {
         }
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        view.endEditing(true)
-//    }
+//        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//            view.endEditing(true)
+//        }
     
-}
-
-extension ViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        <#code#>if textField == tf1 {
-            tF1
-        } else
-            
-            
-    }
-    
-}
-    
-extension String {
-    
-    enum TextFieldType {
-        case onlyLettersTF
-        case limitTF
-        case onlyCharacterTF
-        case linkTF
-        case passwordTF
-    }
-    
-    enum Regex: String {
-        case onlyLetters = "[a-zA-Z]"  //{1, 100}"
-        //        case limit = "[a-zA-Z0-9][a-zA-Z0-9]{1,10}"
-        //        case onlyCharacter = "[a-zA-Z]+ +[0-9]{5,5}" //вопрос черточки и количества(только 5 надо)
-        //        case link = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
-        //        case password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
-    }
-    
-    func isValid(_ textFieldType: TextFieldType) -> Bool {
-        let format = "SELF MATCHES %@"
-        var regex = ""
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
-        switch textFieldType {
-        case .onlyLettersTF:
-            regex = Regex.onlyLetters.rawValue
-            //            lettersTextField.text = Regex.onlyLetters.rawValue
-            //        case .limitTF:
-            //            regex = Regex.limit.rawValue
-            //        case .onlyCharacterTF:
-            //            regex = Regex.onlyCharacter.rawValue
-            //        case .linkTF:
-            //            regex = Regex.link.rawValue
-            //        case .passwordTF:
-            //            regex = Regex.password.rawValue
-        default:
-            print("mistake")
+        
+        
+        
+    }
+    //}
+    
+    
+    
+    //extension ViewController {
+    
+    
+    
+    
+    //}
+    
+    
+    
+    
+    //    textfield 1  DONE
+    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            return (string.containsValidCharacter)
+    //        }
+    
+    //    textfield 2  DONE
+    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            let currentText = limitTextField.text ?? ""
+    //            guard let stringRange = Range(range, in: currentText) else { return false }
+    //
+    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    //            charCounter = updatedText.count
+    //            charactersCounter.text = "\(charCounter)/10"
+    //            return updatedText.count < 10
+    //        }
+    
+    
+    //    textfield 3  NOT DONE
+    //func matches(_ regex: String) -> Bool{
+    //        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
+    //
+    //    }
+    
+    
+    
+    //  4 field 4  LINK
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        if let urlString = urlString {
+            if let url = NSURL(string: urlString) {
+                return !UIApplication.shared.canOpenURL(url as URL)
+            }
         }
-        
-        
-        
-        
-        
-        
-        return NSPredicate(format: format, regex).evaluate(with: self)
+        return false
     }
+    
+    
+//MARK: keyboard
+    
+    
+    
+    
+    
+    
+    
+    
 }
-
-
-
-
-
-
-
-    //    func handleTextChange(_ TextFieldType: TextFieldType) { //@objc
     
     
     
-    //        func textFieldDidEndEditing(_ textField: UITextField) {
-    //            <#code#>
-    //        }
     
-    //        switch TextFieldType {
-    //        case .onlyLettersTF:
-    //            lettersTextField.isEnabled = true
-    //            limitTextField.isEnabled = false
-    //            characterTextField.isEnabled = false
-    //            linkTextField.isEnabled = false
-    //            passwordTextField.isEnabled = false
-    //        case .limitTF:
-    //            lettersTextField.isEnabled = false
-    //            limitTextField.isEnabled = true
-    //            characterTextField.isEnabled = false
-    //            linkTextField.isEnabled = false
-    //            passwordTextField.isEnabled = false
-    //        default: print("print default value")
+    //https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
+    //    extension String {
+    //        func isValidUrl() -> Bool {
+    //            let regex = "((http|https|ftp)://)?((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
+    //            let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+    //            return predicate.evaluate(with: self)
     //        }
     //    }
-    //        case .onlyCharacterTF:
-    //
-    //        case .linkTF:
-    //
-    //        case .passwordTF:
-    //
-    //    }
-    //    }
     
+    
+    //func verifyUrl (urlString: linkTextField) -> Bool {
+    //    if let urlString = urlString {
+    //        if let url = NSURL(string: urlString) {
+    //            return UIApplication.shared.canOpenURL(url as URL)
+    //        }
+    //    }
+    //    return false
+    //}
+    
+    
+    
+    //}
+    
+    
+    
+    //
+    //            var isValid: Bool {
+    //                do {
+    //                    let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
+    //                    return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
+    //                } catch {
+    //                    return false
+    //                }
+    //            }
+    //}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //}
+    //extension String {
+    //        textfiled1
+    //    var containsValidCharacter: Bool {
+    //        guard self != "" else { return true }
+    //        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
+    //        let newSet = CharacterSet(charactersIn: self)
+    //        return hexSet.isSuperset(of: newSet)
+    //    }
+    //}
     
     
     /*   list of textfields
@@ -556,4 +618,6 @@ extension String {
      */
     
     
-//}
+    
+    
+
