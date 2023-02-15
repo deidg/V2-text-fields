@@ -28,28 +28,29 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
-//        textFieldDidEndEditing(linkTextField)
-//        textFieldDidBeginEditing()
-//        let result = verifyUrl(urlString: linkTextField.text)
-//        let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
-//                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
-
-//        let inputLink: String = linkTextField.text ?? ""
-//        let result = //verifyUrl(urlString: inputLink)
-//        print(result)
+        //        textFieldDidEndEditing(linkTextField)
+        //        textFieldDidBeginEditing()
+        //        let result = verifyUrl(urlString: linkTextField.text)
+        //        let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
+        //                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
+        
+        //        let inputLink: String = linkTextField.text ?? ""
+        //        let result = //verifyUrl(urlString: inputLink)
+        //        print(result)
         
         
-//        func textFieldDidEndEditing(_ textField: UITextField)
+        let resultLink = canOpenURL("https://www.googlecom")
+        print("resultLink - \(resultLink)")
         
-//
-
+        
+        
         lettersTextField.delegate = self
         limitTextField.delegate = self
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-
+        
         //        lettersTextField.addTarget(self,
         //                            action: #selector(textFieldDidChange(_:)),
         //                            for: .editingChanged)
@@ -233,7 +234,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         return validationRulesLabel
     }()
     
-   
+    
     
     
     private func setupItemsOnView() {
@@ -400,35 +401,67 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
     
-//    verifyUrl
+    //    verifyUrl
+    
+    
+    //    let inputLink: String = "www.df.ru"
+    //    var inputLink = String()
+//    var inputLink: String = "www.df.ru"
+//    let inputEmail: String = "sdfs@dsfs.com"
+//    let w = "www."
+//    let p = "."
+    
+}
 
-    
-//    let inputLink: String = "www.df.ru"
-//    var inputLink = String()
-    var inputLink: String = "www.df.ru"
-    let inputEmail: String = "sdfs@dsfs.com"
-    let w = "www."
-    let p = "."
+//var myUrl = URL(string: "www.df.ru")
+//var myUrl: String = "www.df.ru"
 
+fileprivate func canOpenURL(_ urlString: String) -> Bool {
+    guard let url = URL(string: urlString) else { return false }
     
-    
-    let myUrl = URL(string: "www.df.ru")
-    //func checkUrl(){
-    func canOpenURL(_ url: URL) -> Bool {
-        if UIApplication.shared.canOpenURL(url) {
-            
-            print("true!")
+    if UIApplication.shared.canOpenURL(url) { //== true {
+                print("Its a link")
             return true
-        } else  {
-            print("NO!")
-            return false}
-    }
-   
-    
-    
-    
-    
-    
+            } else {
+                print("Its NOT a link")
+                return false
+            }
+        }
+
+
+
+
+
+
+//func checkUrl(){
+//    func canOpenURL(_ url: URL) -> Bool {
+//    if UIApplication.shared.canOpenURL(myUrl) {
+//        print("true!")
+//        //            return true
+//    } else  {
+//        print("NO!")
+//        //            return false}
+//    }
+//}
+//canOpenURL(myUrl ?? "")
+
+
+//func lastCheck() {
+//    if canOpenURL(myUrl) == true {
+//        print("myTrue")
+//    } else {
+//        print("NotTrue")
+//    }
+//}
+//var emailStatus = lastCheck()
+//print(emailStatus)
+//  canOpenURL(myUrl)
+
+//==================
+
+
+
+
 //
 //
 //    func verifyUrl (urlString: String?) -> Bool {
@@ -442,17 +475,17 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
 //    verifyUrl(urlString)
 
 
- 
-    
-}
 
 
-        //    () {
-        //        print("ok")
-        //    } else {
-        //        print("no")
-        //    }
-        
+//}
+
+
+//    () {
+//        print("ok")
+//    } else {
+//        print("no")
+//    }
+
 //    }
 //}
 
@@ -473,7 +506,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
 
 //constants
 extension ViewController: UITextFieldDelegate {
- 
+    
     enum Constants {
         enum LabelsSettings {
             static let lettersTextViewCornerRadius: CGFloat = 10
@@ -514,9 +547,9 @@ extension ViewController: UITextFieldDelegate {
         }
     }
     
-//        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//            view.endEditing(true)
-//        }
+    //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //            view.endEditing(true)
+    //        }
     
     
     //}
@@ -565,7 +598,7 @@ extension ViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let inputLink: String = linkTextField.text ?? ""
-
+        
         
         
         if inputLink.starts(with: "www.") {//&& inputLink.contains(where: ".") {
@@ -574,28 +607,28 @@ extension ViewController: UITextFieldDelegate {
             print("no")
         }
         
-//        func verifyUrl (urlString: String?) -> Bool {
-//            if let urlString = urlString {
-//                if let url = NSURL(string: urlString) {
-//                    return !UIApplication.shared.canOpenURL(url as URL)
-//                }
-//            }
-//            return false
-//        }
-//        var verification = verifyUrl(urlString: linkTextField.text)
-//
-//        if verification == true {
-//            print("link is correct")
-//        } else {
-//            print("link isNOT correct")
-//        }
-
+        //        func verifyUrl (urlString: String?) -> Bool {
+        //            if let urlString = urlString {
+        //                if let url = NSURL(string: urlString) {
+        //                    return !UIApplication.shared.canOpenURL(url as URL)
+        //                }
+        //            }
+        //            return false
+        //        }
+        //        var verification = verifyUrl(urlString: linkTextField.text)
+        //
+        //        if verification == true {
+        //            print("link is correct")
+        //        } else {
+        //            print("link isNOT correct")
+        //        }
+        
     }
     
     
     
     
-//MARK: keyboard
+    //MARK: keyboard
     
     
     
@@ -605,75 +638,75 @@ extension ViewController: UITextFieldDelegate {
     
     
 }
-    
-    
-    
-    
-    //https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
-    //    extension String {
-    //        func isValidUrl() -> Bool {
-    //            let regex = "((http|https|ftp)://)?((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
-    //            let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-    //            return predicate.evaluate(with: self)
-    //        }
-    //    }
-    
-    
-    //func verifyUrl (urlString: linkTextField) -> Bool {
-    //    if let urlString = urlString {
-    //        if let url = NSURL(string: urlString) {
-    //            return UIApplication.shared.canOpenURL(url as URL)
-    //        }
-    //    }
-    //    return false
-    //}
-    
-    
-    
-    //}
-    
-    
-    
-    //
-    //            var isValid: Bool {
-    //                do {
-    //                    let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
-    //                    return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
-    //                } catch {
-    //                    return false
-    //                }
-    //            }
-    //}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //}
-    //extension String {
-    //        textfiled1
-    //    var containsValidCharacter: Bool {
-    //        guard self != "" else { return true }
-    //        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
-    //        let newSet = CharacterSet(charactersIn: self)
-    //        return hexSet.isSuperset(of: newSet)
-    //    }
-    //}
-    
-    
-    /*   list of textfields
-     lettersTextField
-     limitTextField
-     characterTextField
-     linkTextField
-     passwordTextField
-     */
-    
-    
-    
-    
+
+
+
+
+//https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
+//    extension String {
+//        func isValidUrl() -> Bool {
+//            let regex = "((http|https|ftp)://)?((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
+//            let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+//            return predicate.evaluate(with: self)
+//        }
+//    }
+
+
+//func verifyUrl (urlString: linkTextField) -> Bool {
+//    if let urlString = urlString {
+//        if let url = NSURL(string: urlString) {
+//            return UIApplication.shared.canOpenURL(url as URL)
+//        }
+//    }
+//    return false
+//}
+
+
+
+//}
+
+
+
+//
+//            var isValid: Bool {
+//                do {
+//                    let regex = try NSRegularExpression(pattern: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ", options: .caseInsensitive)
+//                    return regex.firstMatchInString(characterTextField, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
+//                } catch {
+//                    return false
+//                }
+//            }
+//}
+
+
+
+
+
+
+
+
+
+//}
+//extension String {
+//        textfiled1
+//    var containsValidCharacter: Bool {
+//        guard self != "" else { return true }
+//        let hexSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ")
+//        let newSet = CharacterSet(charactersIn: self)
+//        return hexSet.isSuperset(of: newSet)
+//    }
+//}
+
+
+/*   list of textfields
+ lettersTextField
+ limitTextField
+ characterTextField
+ linkTextField
+ passwordTextField
+ */
+
+
+
+
 
