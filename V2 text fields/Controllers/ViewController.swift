@@ -28,8 +28,8 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
-        textFieldDidEndEditing(linkTextField)
-        
+//        textFieldDidEndEditing(linkTextField)
+//        textFieldDidBeginEditing()
 //        let result = verifyUrl(urlString: linkTextField.text)
 //        let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
 //                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
@@ -41,7 +41,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         
 //        func textFieldDidEndEditing(_ textField: UITextField)
         
-        
+//
 
         lettersTextField.delegate = self
         limitTextField.delegate = self
@@ -402,6 +402,33 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     
 //    verifyUrl
 
+    
+//    let inputLink: String = "www.df.ru"
+//    var inputLink = String()
+    var inputLink: String = "www.df.ru"
+    let inputEmail: String = "sdfs@dsfs.com"
+    let w = "www."
+    let p = "."
+
+    
+    
+    let myUrl = URL(string: "www.df.ru")
+    //func checkUrl(){
+    func canOpenURL(_ url: URL) -> Bool {
+        if UIApplication.shared.canOpenURL(url) {
+            
+            print("true!")
+            return true
+        } else  {
+            print("NO!")
+            return false}
+    }
+   
+    
+    
+    
+    
+    
 //
 //
 //    func verifyUrl (urlString: String?) -> Bool {
@@ -419,6 +446,15 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     
 }
 
+
+        //    () {
+        //        print("ok")
+        //    } else {
+        //        print("no")
+        //    }
+        
+//    }
+//}
 
 
 
@@ -523,27 +559,37 @@ extension ViewController: UITextFieldDelegate {
     
     
     //  4 field 4  LINK
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("TF #4 started editing")
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        let inputLink = linkTextField.text
+        let inputLink: String = linkTextField.text ?? ""
+
         
-        func verifyUrl (urlString: String?) -> Bool {
-            if let urlString = urlString {
-                if let url = NSURL(string: urlString) {
-                    return !UIApplication.shared.canOpenURL(url as URL)
-                }
-            }
-            return false
-        }
-        var verification = verifyUrl(urlString: linkTextField.text)
         
-        if verification == true {
-            print("link is correct")
+        if inputLink.starts(with: "www.") {//&& inputLink.contains(where: ".") {
+            print("ok")
         } else {
-            print("link isNOT correct")
+            print("no")
         }
         
+//        func verifyUrl (urlString: String?) -> Bool {
+//            if let urlString = urlString {
+//                if let url = NSURL(string: urlString) {
+//                    return !UIApplication.shared.canOpenURL(url as URL)
+//                }
+//            }
+//            return false
+//        }
+//        var verification = verifyUrl(urlString: linkTextField.text)
+//
+//        if verification == true {
+//            print("link is correct")
+//        } else {
+//            print("link isNOT correct")
+//        }
+
     }
     
     
