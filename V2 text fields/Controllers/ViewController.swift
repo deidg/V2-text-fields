@@ -34,12 +34,12 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-//        let passTF: String = passwordTextField.text ?? ""
-        let inputPassword = "VmNHvv2c"
+//        let inputPassword: String = passwordTextField.text ?? ""
+//        let inputPassword = "VmNHvv2c"
         
         //        print(isValid(password: passTF))
         
-        print(isValid(inputPassword: inputPassword))
+//        print(isValid(inputPassword: inputPassword))
         
         
         let paragraph = NSMutableParagraphStyle()
@@ -384,7 +384,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     }
     
     
-    
+   // TF 5
     func isValid(inputPassword: String) -> Bool {
         return inputPassword.range(
             of: passwordRegex,
@@ -392,25 +392,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         ) != nil
         return true
     }
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    //отсюда - https://stackoverflow.com/questions/72975559/swift-5-error-with-the-password-validation-regex
-    //func isValid(password: String) -> Bool {
-    //    return password.range(
-    //        of: phonePattern,
-    //        options: .regularExpression
-    //    ) != nil
-    //}
-    
-    //let password = "Greatpass13"
 }
     
     
@@ -505,7 +487,9 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
             print("didEndEditing")
             
-//            print(checkPassword(passTF: passwordTextField.text ?? ""))
+            let inputPassword: String = passwordTextField.text ?? ""
+            
+            print("Entered password \(isValid(inputPassword: inputPassword))")
         }
         
         
