@@ -31,17 +31,17 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         //        textFieldDidEndEditing(linkTextField)
         //        textFieldDidBeginEditing()
         //        let result = verifyUrl(urlString: linkTextField.text)
-//                let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
+        //                let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
         //                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
-//        open(resultLink)
+        //        open(resultLink)
         //        let inputLink: String = linkTextField.text ?? ""
         //        let result = //verifyUrl(urlString: inputLink)
         //        print(result)
         
         
         
-//        check3(inputLink: inputLink)
-
+        //        check3(inputLink: inputLink)
+        
         
         
         lettersTextField.delegate = self
@@ -400,13 +400,13 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     func defaultConfiguration() {
         self.view.backgroundColor = .white
     }
- 
+    
     
     
 }
 
 //func
- 
+
 //let resultLink: String = "http://www.google.com"
 //
 //func open(string: String){
@@ -453,7 +453,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
 
 
 
-    //MARK: extension ViewController
+//MARK: extension ViewController
 extension ViewController: UITextFieldDelegate {
     //constants
     enum Constants {
@@ -542,116 +542,125 @@ extension ViewController: UITextFieldDelegate {
     //    func textFieldDidBeginEditing(_ textField: UITextField) {
     //        print("TF #4 started editing")
     //    }
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-
-        
-//        if textField == linkTextField {
-//
-//            let inputLink: String = linkTextField.text ?? ""
-//            print("\(inputLink)")
-            
-//            func open(string: String){
-//                       if let url = URL(string: inputLink) {
-//                           UIApplication.shared.open(url)
-//                       }
-//                   }
-//        }
-//    }
-   
+    //    func textFieldDidEndEditing(_ textField: UITextField) {
+    
+    
+    //        if textField == linkTextField {
+    //
+    //            let inputLink: String = linkTextField.text ?? ""
+    //            print("\(inputLink)")
+    
+    //            func open(string: String){
+    //                       if let url = URL(string: inputLink) {
+    //                           UIApplication.shared.open(url)
+    //                       }
+    //                   }
+    //        }
+    //    }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-                print("didEndEditing")
-
-//        if textField == linkTextField {
+        print("didEndEditing")
         
-                    let inputLink: String = linkTextField.text ?? ""
-                    print("\(inputLink)")
-                    
-                    func open(string: String){
-                               if let url = URL(string: inputLink) {
-                                   UIApplication.shared.open(url)
-                               }
-                           }
+        //        if textField == linkTextField {
+        let inputLink: String = linkTextField.text ?? ""
+        print("\(inputLink)")
+        
+        let delay : Double = 5.0    // 5 seconds here
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            
+            func open(string: String){
+                if let url = URL(string: inputLink) {
+                    UIApplication.shared.open(url)
                 }
-        
-        
-    }
-    
-       
-        
-//        print("TF #4 ENDED editing")
-        
-        
-        //
-        ////        let resultLink: String = "http://www.google.com"
-        //
-//
-        
-//    }
-        
-        
-        //        if inputLink.starts(with: "www.") {//&& inputLink.contains(where: ".") {
-        //            print("ok")
-        //        } else {
-        //            print("no")
-        //        }
-        
-        //        func verifyUrl (urlString: String?) -> Bool {
-        //            if let urlString = urlString {
-        //                if let url = NSURL(string: urlString) {
-        //                    return !UIApplication.shared.canOpenURL(url as URL)
-        //                }
-        //            }
-        //            return false
-        
-//    }
-    
-    
-    
-    
-    //MARK: keyboard
-    
-    
-    //    let chackFunc
-    
-    
-    
-    
-    
-    //}
-    
-    
-    // MARK: Extension String
-    
-    //https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
-    extension String {
-        // for textField4  - link
-        var isValidURL: Bool {
-            let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
-                // it is a link, if the match covers the whole string
-                return match.range.length == self.utf16.count
-            } else {
-                return false
             }
+            
         }
-        //    let inputLink = "https://www.fs.blog/2017/02/naval-ravikant-reading-decision-making/"
-        //    func check3(){
-        //        if inputLink.isValidURL == true {
-        //            print("This link valid!!!")
-        //        } else {
-        //            print("foo")
-        //        }
-        //    }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        //
+        //                    let inputLink: String = linkTextField.text ?? ""
+        //                    print("\(inputLink)")
         
         
     }
+    
+    
+}
+
+
+
+//        print("TF #4 ENDED editing")
+
+
+//
+////        let resultLink: String = "http://www.google.com"
+//
+//
+
+//    }
+
+
+//        if inputLink.starts(with: "www.") {//&& inputLink.contains(where: ".") {
+//            print("ok")
+//        } else {
+//            print("no")
+//        }
+
+//        func verifyUrl (urlString: String?) -> Bool {
+//            if let urlString = urlString {
+//                if let url = NSURL(string: urlString) {
+//                    return !UIApplication.shared.canOpenURL(url as URL)
+//                }
+//            }
+//            return false
+
+//    }
+
+
+
+
+//MARK: keyboard
+
+
+//    let chackFunc
+
+
+
+
+
+//}
+
+
+// MARK: Extension String
+
+//https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
+extension String {
+    // for textField4  - link
+    var isValidURL: Bool {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
+            // it is a link, if the match covers the whole string
+            return match.range.length == self.utf16.count
+        } else {
+            return false
+        }
+    }
+    //    let inputLink = "https://www.fs.blog/2017/02/naval-ravikant-reading-decision-making/"
+    //    func check3(){
+    //        if inputLink.isValidURL == true {
+    //            print("This link valid!!!")
+    //        } else {
+    //            print("foo")
+    //        }
+    //    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
 
