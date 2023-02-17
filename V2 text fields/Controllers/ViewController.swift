@@ -5,7 +5,7 @@
 //  Created by Alex on 07.02.2023.
 //
 
-
+//TODO:  почистить код от комментариев и перейти к паролю
 // TODO: доставать и скрывать клавиатуру
 
 import UIKit
@@ -20,50 +20,29 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
-    
-    
-    
+    let phonePattern: String = #"(?=^.{7,}$)(?=^.*[A-Z].*$)(?=^.*\d.*$)(?=.*[$@$!%*?&#]).*"#
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
-        //        textFieldDidEndEditing(linkTextField)
-        //        textFieldDidBeginEditing()
-        //        let result = verifyUrl(urlString: linkTextField.text)
-        //                let result = verifyUrl(urlString: "http://www.dvjkbsdjkfhkdsjhf.com")
-        //                let result = verifyUrl(urlString: "vjkbsdjkfhkdsjhf")
-        //        open(resultLink)
-        //        let inputLink: String = linkTextField.text ?? ""
-        //        let result = //verifyUrl(urlString: inputLink)
-        //        print(result)
-        
-        
-        
-        //        check3(inputLink: inputLink)
-        
-        
-        
         lettersTextField.delegate = self
         limitTextField.delegate = self
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
+        let passTF: String = passwordTextField.text ?? ""
         
-        //        lettersTextField.addTarget(self,
-        //                            action: #selector(textFieldDidChange(_:)),
-        //                            for: .editingChanged)
         
+        //        print(isValid(password: passTF))
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
         let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
-        
     }
-    
     
     
     
@@ -76,8 +55,6 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         titleLabel.backgroundColor = .white
         return titleLabel
     }()
-    
-    
     
     //MARK: 1 field 1
     let noDigitLabel: UILabel = {
@@ -234,7 +211,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         return validationRulesLabel
     }()
     
-    
+    //    var passwordTextField = passwordTextField
     
     
     private func setupItemsOnView() {
@@ -401,266 +378,156 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
     
-    
-    
-}
-
-//func
-
-//let resultLink: String = "http://www.google.com"
-//
-//func open(string: String){
-//    if let url = URL(string: resultLink) {
-//        UIApplication.shared.open(url)
-//    }
-//}
-
-//"https://www.hackingwithswift.com") {
-
-
-
-
-//func canOpenURL(_ urlString: String) -> Bool {
-//    guard let url = URL(string: urlString) else { return false }
-//
-//    if UIApplication.shared.open(<#T##url: URL##URL#>) == true {
-//        print("Its a link")
-//        return true
-//    } else {
-//        print("Its NOT a link")
-//        return false
-//    }
-//}
-
-//let resultLink = canOpenURL("www.google.com")
-//print("resultLink - \(resultLink)")
-//
-
-
-//func openLink(string: String) {
-//    if let url = URL(string: result) {
-//        UIApplication.shared.open(url)
-//    }
-//}
-//
-////"https://www.hackingwithswift.com") {
-
-
-
-
-
-
-
-
-
-//MARK: extension ViewController
-extension ViewController: UITextFieldDelegate {
-    //constants
-    enum Constants {
-        enum LabelsSettings {
-            static let lettersTextViewCornerRadius: CGFloat = 10
-        }
+    func checkPassword(passTF: String) -> Bool {
         
-        enum LabelsFonts {
-            static let mainLabelFont = UIFont(name: "Rubik", size: 34)
-            static let smallLabelFont = UIFont(name: "Rubik", size: 13)
-            
+        //        if passTF != "" {/
+        
+        func isValid(passTF: String) -> Bool {
+            return passTF.range(
+                of: phonePattern,
+                options: .regularExpression
+            ) != nil
+            return true
         }
-        enum LabelsTexts {
-            static let mainTitleLabeText = "Text Fields"
-            static let noDigitLabelText = "NO digit field"
-            static let inputLimitLabelText = "Input limit"
-            static let onlyCharectersLabelText = "Only characters"
-            static let linkLabelText = "Link"
-            static let validationLabelText = "Validation rules"
-            static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
-            
-            
-            
-            static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
-            static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
-        }
-        enum LabelsBackgroundColors {
-            static let labelBackgoundColors = UIColor.white
-        }
-        enum TextFields {
-            static let lettersTextFieldPlaceholderText = "Type here"
-            static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
-            static let linkTextFieldPlaceholderText = "www.example.com"
-            static let passwordTextFieldPlaceholderText = "Password"
-            
-            static let textFieldFont = UIFont(name: "Rubik", size: 17)
-            static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
-            static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
-            static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
-        }
+        //        } else {
+        //            print("Password is BAD")
+        //        }
+        //        return
     }
     
-    //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //            view.endEditing(true)
-    //        }
-    
-    
     //}
     
+    //print(isValid(password: passTF))
+    
+    //passTF =
+    
+    //var pass =  passTF.text ?? ""
     
     
-    //extension ViewController {
     
     
     
-    
+    //отсюда - https://stackoverflow.com/questions/72975559/swift-5-error-with-the-password-validation-regex
+    //func isValid(password: String) -> Bool {
+    //    return password.range(
+    //        of: phonePattern,
+    //        options: .regularExpression
+    //    ) != nil
     //}
     
+    //let password = "Greatpass13"
+}
     
     
     
-    //    textfield 1  DONE
-    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            return (string.containsValidCharacter)
-    //        }
-    
-    //    textfield 2  DONE
-    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            let currentText = limitTextField.text ?? ""
-    //            guard let stringRange = Range(range, in: currentText) else { return false }
-    //
-    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    //            charCounter = updatedText.count
-    //            charactersCounter.text = "\(charCounter)/10"
-    //            return updatedText.count < 10
-    //        }
-    
-    
-    //    textfield 3  NOT DONE
-    //func matches(_ regex: String) -> Bool{
-    //        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
-    //
-    //    }
-    
-    //  4 field 4  LINK
-    //    func textFieldDidBeginEditing(_ textField: UITextField) {
-    //        print("TF #4 started editing")
-    //    }
-    //    func textFieldDidEndEditing(_ textField: UITextField) {
-    
-    
-    //        if textField == linkTextField {
-    //
-    //            let inputLink: String = linkTextField.text ?? ""
-    //            print("\(inputLink)")
-    
-    //            func open(string: String){
-    //                       if let url = URL(string: inputLink) {
-    //                           UIApplication.shared.open(url)
-    //                       }
-    //                   }
-    //        }
-    //    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("didEndEditing")
-        
-        //        if textField == linkTextField {
-        let inputLink: String = linkTextField.text ?? ""
-        print("\(inputLink)")
-        
-        let delay : Double = 5.0    // 5 seconds here
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            
-            func open(string: String){
-                if let url = URL(string: inputLink) {
-                    UIApplication.shared.open(url)
-                }
+    //MARK: extension ViewController
+    extension ViewController: UITextFieldDelegate {
+        //constants
+        enum Constants {
+            enum LabelsSettings {
+                static let lettersTextViewCornerRadius: CGFloat = 10
             }
             
+            enum LabelsFonts {
+                static let mainLabelFont = UIFont(name: "Rubik", size: 34)
+                static let smallLabelFont = UIFont(name: "Rubik", size: 13)
+                
+            }
+            enum LabelsTexts {
+                static let mainTitleLabeText = "Text Fields"
+                static let noDigitLabelText = "NO digit field"
+                static let inputLimitLabelText = "Input limit"
+                static let onlyCharectersLabelText = "Only characters"
+                static let linkLabelText = "Link"
+                static let validationLabelText = "Validation rules"
+                static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+                
+                
+                
+                static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+                static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
+            }
+            enum LabelsBackgroundColors {
+                static let labelBackgoundColors = UIColor.white
+            }
+            enum TextFields {
+                static let lettersTextFieldPlaceholderText = "Type here"
+                static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
+                static let linkTextFieldPlaceholderText = "www.example.com"
+                static let passwordTextFieldPlaceholderText = "Password"
+                
+                static let textFieldFont = UIFont(name: "Rubik", size: 17)
+                static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
+                static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+                static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+            }
         }
+        
+        //    textfield 1  DONE
+        //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //            return (string.containsValidCharacter)
+        //        }
+        
+        //    textfield 2  DONE
+        //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //            let currentText = limitTextField.text ?? ""
+        //            guard let stringRange = Range(range, in: currentText) else { return false }
         //
-        //                    let inputLink: String = linkTextField.text ?? ""
-        //                    print("\(inputLink)")
+        //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        //            charCounter = updatedText.count
+        //            charactersCounter.text = "\(charCounter)/10"
+        //            return updatedText.count < 10
+        //        }
         
         
-    }
-    
-    
-}
-
-
-
-//        print("TF #4 ENDED editing")
-
-
-//
-////        let resultLink: String = "http://www.google.com"
-//
-//
-
-//    }
-
-
-//        if inputLink.starts(with: "www.") {//&& inputLink.contains(where: ".") {
-//            print("ok")
-//        } else {
-//            print("no")
-//        }
-
-//        func verifyUrl (urlString: String?) -> Bool {
-//            if let urlString = urlString {
-//                if let url = NSURL(string: urlString) {
-//                    return !UIApplication.shared.canOpenURL(url as URL)
-//                }
-//            }
-//            return false
-
-//    }
-
-
-
-
-//MARK: keyboard
-
-
-//    let chackFunc
-
-
-
-
-
-//}
-
-
-// MARK: Extension String
-
-//https://stackoverflow.com/questions/35049322/how-do-i-validate-an-url
-extension String {
-    // for textField4  - link
-    var isValidURL: Bool {
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
-            // it is a link, if the match covers the whole string
-            return match.range.length == self.utf16.count
-        } else {
-            return false
+        //    textfield 3  NOT DONE
+        //func matches(_ regex: String) -> Bool{
+        //        return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
+        //
+        //    }
+        
+        //  4 field 4  LINK DONE
+        //    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //        print("didEndEditing")
+        //
+        //        //        if textField == linkTextField {
+        //        let inputLink: String = linkTextField.text ?? ""
+        //        print("\(inputLink)")
+        //
+        //        let delay : Double = 5.0    // 5 seconds here
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+        //
+        //            func open(string: String){
+        //                if let url = URL(string: inputLink) {
+        //                    UIApplication.shared.open(url)
+        //                }
+        //            }
+        //        }
+        //    }
+        
+        //  5 field 5  PASSWORD
+        
+        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+            print("didEndEditing")
+            
+            print(checkPassword(passTF: passwordTextField.text ?? ""))
         }
+        
+        
+        
+        
     }
-    //    let inputLink = "https://www.fs.blog/2017/02/naval-ravikant-reading-decision-making/"
-    //    func check3(){
-    //        if inputLink.isValidURL == true {
-    //            print("This link valid!!!")
-    //        } else {
-    //            print("foo")
-    //        }
-    //    }
+    
+    
+    //MARK: keyboard
+    
+    
+    
+    
+    // MARK: Extension String
     
     
     
     
     
-    
-    
-    
-    
-    
-    
-}
-
+//}
