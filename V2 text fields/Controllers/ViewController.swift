@@ -20,7 +20,9 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
-    let phonePattern: String = #"(?=^.{7,}$)(?=^.*[A-Z].*$)(?=^.*\d.*$)(?=.*[$@$!%*?&#]).*"#
+    let passwordRegex: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +34,13 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-        let passTF: String = passwordTextField.text ?? ""
-        
+//        let passTF: String = passwordTextField.text ?? ""
+        let inputPassword = "VmNHvv2c"
         
         //        print(isValid(password: passTF))
+        
+        print(isValid(inputPassword: inputPassword))
+        
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
@@ -378,30 +383,20 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
     
-    func checkPassword(passTF: String) -> Bool {
-        
-        //        if passTF != "" {/
-        
-        func isValid(passTF: String) -> Bool {
-            return passTF.range(
-                of: phonePattern,
-                options: .regularExpression
-            ) != nil
-            return true
-        }
-        //        } else {
-        //            print("Password is BAD")
-        //        }
-        //        return
+    
+    
+    func isValid(inputPassword: String) -> Bool {
+        return inputPassword.range(
+            of: passwordRegex,
+            options: .regularExpression
+        ) != nil
+        return true
     }
     
-    //}
     
-    //print(isValid(password: passTF))
+
     
-    //passTF =
     
-    //var pass =  passTF.text ?? ""
     
     
     
@@ -510,7 +505,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
             print("didEndEditing")
             
-            print(checkPassword(passTF: passwordTextField.text ?? ""))
+//            print(checkPassword(passTF: passwordTextField.text ?? ""))
         }
         
         
