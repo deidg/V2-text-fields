@@ -35,34 +35,24 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
+        
+        
+        
+        
+        
+//        func setupKeyboardHiding() {
+//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        }
+        
+        
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
         let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
-        
-        registerForKeyBoardNotification()
     }
-    
-    deinit {
-        
-    }
-    
-    func registerForKeyBoardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: NSNotification.keyboardWillShowNotification //.Name.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: NSNotification.Name.keyboardWillHideNotification, object: nil)
-    }
-    
-    func removeKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    }
-    
-    @objc func kbWillShow(_ notification: Notification) {
-        
-    }
-    @objc func kbWillHide() {
-        
-    }
+   
     
     
     let scrollView = UIScrollView()
@@ -105,7 +95,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         //        lettersTextField.keyboardType = UIKeyboardType.numberPad
         
         lettersTextField.keyboardType = .alphabet
-        lettersTextField.becomeFirstResponder()
+//        lettersTextField.becomeFirstResponder()
         
         
         return lettersTextField
@@ -558,54 +548,79 @@ extension ViewController: UITextFieldDelegate {
     
     
     //MARK: keyboard
-//    private func addTapToHideKeyboard() {
-//        let tap = UITapGestureRecognizer(
-//            target: self,
-//            action: #selector(hideKeyboard(gesture:))
-//        )
-//        contentView.addGestureRecognizer(tap)
-//    }
-//    private func observeKeyboardNotificaton() {
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillShow(sender:)),
-//                                               name: UIResponder.keyboardWillShowNotification,
-//                                               object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillHide(sender:)),
-//                                               name: UIResponder.keyboardWillHideNotification,
-//                                               object: nil)
-//    }
-//    @objc private func keyboardWillShow(sender: NSNotification) {
-//        guard let userInfo = sender.userInfo else { return }
-//        guard var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
-//        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-//        var contentInset: UIEdgeInsets = self.view.safeAreaInsets  // contentInset
-//        contentInset.bottom = keyboardFrame.size.height
-//        view.safeAreaInsets = contentInset
-//    }
-//    @objc private  func keyboardWillHide(sender: NSNotification) {
-//        let contentInset: UIEdgeInsets = UIEdgeInsets.zero
-//        scrollView.contentInset = contentInset
-//    }
+    
+    
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y -= 150
+    }
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y += 150
+    }
     
     
     
-//    @objc func keyboardWillShow(_ notification: NSNotification) {
-//        if lettersTextField.isEditing || limitTextField.isEditing || characterTextField.isEditing || linkTextField.isEditing || passwordTextField.isEditing
-//        {
-//                   moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: true)
-//               }
+    
+    
+    //====
+//    @objc func keyboardWillShow(sender: NSNotification) {
+//        guard let userInfo = sender.userInfo,
+//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+//              let currentTextField = UIResponder.currentFirst() as? UITextField else { return }
+//
+//        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+//        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+//        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+//
+//        // if textField bottom is below keyboard bottom - bump the frame up
+//        if textFieldBottomY > keyboardTopY {
+//            let textBoxY = convertedTextFieldFrame.origin.y
+//            let newFrameY = (textBoxY - keyboardTopY / 2) * -1
+//            view.frame.origin.y = newFrameY
 //        }
 //
-//        @objc func keyboardWillHide(_ notification: NSNotification) {
-//             // Add code later...
+//
+//        func keyboardWillShow(sender: NSNotification) {
+//            view.frame.origin.y = view.frame.origin.y - 200
 //        }
-}
-
-// MARK: Extension String
-
-
-
-
-
+//
+//        func keyboardWillHide(notification: NSNotification) {
+//            view.frame.origin.y = 0
+//        }
+        
+        
+//        extension UIResponder {
+//
+//            private struct Static {
+//                static weak var responder: UIResponder?
+//            }
+//
+//            /// Finds the current first responder
+//            /// - Returns: the current UIResponder if it exists
+//            static func currentFirst() -> UIResponder? {
+//                Static.responder = nil
+//                UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
+//                return Static.responder
+//            }
+//
+//            @objc private func _trap() {
+//                Static.responder = self
+//            }
+//        }
+    //=====
+        
+        
+        
+        //
+        //        @objc func keyboardWillHide(_ notification: NSNotification) {
+        //             // Add code later...
+        //        }
+        //}
+        
+        // MARK: Extension String
+        
+        
+        
+        
+        
+    }
 //}
