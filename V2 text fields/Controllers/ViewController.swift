@@ -42,23 +42,26 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         validationRulesLabel.attributedText = attributedString
         
         
-        NotificationCenter.default.addObserver(
-                  self,
-                  selector: #selector(self.keyboardWillShow),
-                  name: UIResponder.keyboardWillShowNotification,
-                  object: nil)
-
-              NotificationCenter.default.addObserver(
-                  self,
-                  selector: #selector(self.keyboardWillHide),
-                  name: UIResponder.keyboardWillHideNotification,
-                  object: nil)
+//        NotificationCenter.default.addObserver(
+//                  self,
+//                  selector: #selector(self.keyboardWillShow),
+//                  name: UIResponder.keyboardWillShowNotification,
+//                  object: nil)
+//
+//              NotificationCenter.default.addObserver(
+//                  self,
+//                  selector: #selector(self.keyboardWillHide),
+//                  name: UIResponder.keyboardWillHideNotification,
+//                  object: nil)
           
         
         
     }
     
     
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     
     let titleLabel: UILabel = {
@@ -229,15 +232,27 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     
     
     private func setupItemsOnView() {
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints{ make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.bottom.top.width.height.equalToSuperview()
+        }
+        
         //  Textlabel
-        view.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints{ make in
             make.top.equalToSuperview().offset(92)
             make.trailing.leading.equalToSuperview().inset(16)
             make.height.equalTo(41)
         }
         // 1 field 1
-        view.addSubview(noDigitLabel)
+        contentView.addSubview(noDigitLabel)
         noDigitLabel.snp.makeConstraints{ make in
             make.top.equalToSuperview().offset(163)
             make.leading.equalToSuperview().inset(16)
@@ -245,7 +260,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.width.equalTo(78)
             make.height.equalTo(20)
         }
-        view.addSubview(lettersTextView)
+        contentView.addSubview(lettersTextView)
         lettersTextView.snp.makeConstraints{make in
             make.top.equalTo(noDigitLabel.snp.bottom).offset(4)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -264,7 +279,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         }
         
         // 2 field 2
-        view.addSubview(inputLimitLabel)
+        contentView.addSubview(inputLimitLabel)
         inputLimitLabel.snp.makeConstraints{ make in
             make.width.equalTo(58)
             make.height.equalTo(20)
@@ -272,7 +287,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(301)
         }
-        view.addSubview(charactersCounter)
+        contentView.addSubview(charactersCounter)
         charactersCounter.snp.makeConstraints{ make in
             make.width.equalTo(25)
             make.height.equalTo(22)
@@ -280,7 +295,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.trailing.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(334)
         }
-        view.addSubview(limitTextView)
+        contentView.addSubview(limitTextView)
         limitTextView.snp.makeConstraints{ make in
             make.top.equalTo(lettersTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -298,7 +313,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         }
         
         // 3 field 3
-        view.addSubview(onlyCharectersLabel)
+        contentView.addSubview(onlyCharectersLabel)
         onlyCharectersLabel.snp.makeConstraints{ make in
             make.width.equalTo(90)
             make.height.equalTo(20)
@@ -306,7 +321,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(269)
         }
-        view.addSubview(characterTextView)
+        contentView.addSubview(characterTextView)
         characterTextView.snp.makeConstraints{ make in
             make.top.equalTo(limitTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -325,7 +340,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         }
         
         // 4 field 4 LINK
-        view.addSubview(linkLabel)
+        contentView.addSubview(linkLabel)
         linkLabel.snp.makeConstraints{ make in
             make.width.equalTo(24)
             make.height.equalTo(20)
@@ -334,7 +349,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.trailing.equalToSuperview().inset(335)
         }
         
-        view.addSubview(linkTextView)
+        contentView.addSubview(linkTextView)
         linkTextView.snp.makeConstraints{ make in
             make.top.equalTo(characterTextView.snp.bottom).offset(54)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -353,7 +368,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         }
         
         // 5 field 5  PASSWORDS
-        view.addSubview(validationLabel)
+        contentView.addSubview(validationLabel)
         validationLabel.snp.makeConstraints{ make in
             make.width.equalTo(87)
             make.height.equalTo(20)
@@ -361,7 +376,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.leading.equalToSuperview().inset(16)
             make.trailing.equalToSuperview().inset(272)
         }
-        view.addSubview(passwordTextView)
+        contentView.addSubview(passwordTextView)
         passwordTextView.snp.makeConstraints{ make in
             make.top.equalTo(linkTextField.snp.bottom).offset(53)
             make.leading.trailing.equalToSuperview().inset(16)
@@ -377,7 +392,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
             make.width.equalTo(200) //144
             make.height.equalTo(22)
         }
-        view.addSubview(validationRulesLabel)
+        contentView.addSubview(validationRulesLabel)
         validationRulesLabel.snp.makeConstraints{ make in
             make.top.equalTo(passwordTextView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(24)
@@ -570,16 +585,16 @@ extension ViewController: UITextFieldDelegate {
     
     
     
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        if lettersTextField.isEditing || limitTextField.isEditing || characterTextField.isEditing || linkTextField.isEditing || passwordTextField.isEditing
-        {
-                   moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: true)
-               }
-        }
-        
-        @objc func keyboardWillHide(_ notification: NSNotification) {
-             // Add code later...
-        }
+//    @objc func keyboardWillShow(_ notification: NSNotification) {
+//        if lettersTextField.isEditing || limitTextField.isEditing || characterTextField.isEditing || linkTextField.isEditing || passwordTextField.isEditing
+//        {
+//                   moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: true)
+//               }
+//        }
+//
+//        @objc func keyboardWillHide(_ notification: NSNotification) {
+//             // Add code later...
+//        }
 }
 
 // MARK: Extension String
