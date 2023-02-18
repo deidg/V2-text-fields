@@ -5,8 +5,8 @@
 //  Created by Alex on 07.02.2023.
 //
 
-//TODO:  почистить код от комментариев и перейти к паролю
 // TODO: доставать и скрывать клавиатуру
+//TODO: при настройке состояний - стартовать с первого ТФ, остальные неактивны
 
 import UIKit
 import SnapKit
@@ -404,6 +404,17 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     
     //MARK: extension ViewController
     extension ViewController: UITextFieldDelegate {
+        
+        enum State {
+            case lettersTF
+            case limitTF
+            case characterTF
+            case linkTF
+            case passwordTF
+        }
+            
+        
+        
         //constants
         enum Constants {
             enum LabelsSettings {
@@ -463,33 +474,39 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         
         
         //    textfield 3 sample DONE
-                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-                    print("didEndEditing")
-        
-                    let inputText: String = characterTextField.text ?? ""
-        
-                    print("Entered text -  \(isValidText(inputText: inputText))")
-                }
+//                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//                    print("didEndEditing")
+//
+//                    let inputText: String = characterTextField.text ?? ""
+//
+//                    if isValidText(inputText: inputText) == true {
+//                        onlyCharectersLabel.textColor = .green
+//                    } else {
+//                        onlyCharectersLabel.textColor = .red
+//                    }
+//
+//                    print("Entered text -  \(isValidText(inputText: inputText))")
+//                }
         
         
         //  4 field 4  LINK DONE
-        //    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //        print("didEndEditing")
-        //
-        //        //        if textField == linkTextField {
-        //        let inputLink: String = linkTextField.text ?? ""
-        //        print("\(inputLink)")
-        //
-        //        let delay : Double = 5.0    // 5 seconds here
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-        //
-        //            func open(string: String){
-        //                if let url = URL(string: inputLink) {
-        //                    UIApplication.shared.open(url)
-        //                }
-        //            }
-        //        }
-        //    }
+//            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//                print("didEndEditing")
+//
+//                //        if textField == linkTextField {
+//                let inputLink: String = linkTextField.text ?? ""
+//                print("\(inputLink)")
+//
+//                let delay : Double = 5.0    // 5 seconds here
+//                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//
+//                    func open(string: String){
+//                        if let url = URL(string: inputLink) {
+//                            UIApplication.shared.open(url)
+//                        }
+//                    }
+//                }
+//            }
         
         //  5 field 5  PASSWORD
         
