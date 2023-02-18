@@ -20,10 +20,10 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
-
+    
     let passwordRegex: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     let inputTextRegex: String = "^([a-zA-Z]{5})[-]([\\d]{5})$"
-//    let inputText = "dfgty-56789"
+    //    let inputText = "dfgty-56789"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +35,27 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-        
-        
-        
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 7.0
         let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
+        
+        
+        NotificationCenter.default.addObserver(
+                  self,
+                  selector: #selector(self.keyboardWillShow),
+                  name: UIResponder.keyboardWillShowNotification,
+                  object: nil)
+
+              NotificationCenter.default.addObserver(
+                  self,
+                  selector: #selector(self.keyboardWillHide),
+                  name: UIResponder.keyboardWillHideNotification,
+                  object: nil)
+          
+        
+        
     }
     
     
@@ -389,150 +402,190 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     }
     
     
-   // TF 5
-//    func isValid(inputPassword: String) -> Bool {
-//        return inputPassword.range(
-//            of: passwordRegex,
-//            options: .regularExpression
-//        ) != nil
-//        return true
-//    }
-
+    // TF 5
+    //    func isValid(inputPassword: String) -> Bool {
+    //        return inputPassword.range(
+    //            of: passwordRegex,
+    //            options: .regularExpression
+    //        ) != nil
+    //        return true
+    //    }
+    
 }
+
+
+
+//MARK: extension ViewController
+extension ViewController: UITextFieldDelegate {
     
-    
-    
-    //MARK: extension ViewController
-    extension ViewController: UITextFieldDelegate {
-        
-        enum State {
-            case lettersTF
-            case limitTF
-            case characterTF
-            case linkTF
-            case passwordTF
-        }
-            
-        
-        
-        //constants
-        enum Constants {
-            enum LabelsSettings {
-                static let lettersTextViewCornerRadius: CGFloat = 10
-            }
-            
-            enum LabelsFonts {
-                static let mainLabelFont = UIFont(name: "Rubik", size: 34)
-                static let smallLabelFont = UIFont(name: "Rubik", size: 13)
-                
-            }
-            enum LabelsTexts {
-                static let mainTitleLabeText = "Text Fields"
-                static let noDigitLabelText = "NO digit field"
-                static let inputLimitLabelText = "Input limit"
-                static let onlyCharectersLabelText = "Only characters"
-                static let linkLabelText = "Link"
-                static let validationLabelText = "Validation rules"
-                static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
-                
-                
-                
-                static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
-                static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
-            }
-            enum LabelsBackgroundColors {
-                static let labelBackgoundColors = UIColor.white
-            }
-            enum TextFields {
-                static let lettersTextFieldPlaceholderText = "Type here"
-                static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
-                static let linkTextFieldPlaceholderText = "www.example.com"
-                static let passwordTextFieldPlaceholderText = "Password"
-                
-                static let textFieldFont = UIFont(name: "Rubik", size: 17)
-                static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
-                static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
-                static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
-            }
-        }
-        
-        //    textfield 1  DONE
-        //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //            return (string.containsValidCharacter)
-        //        }
-        
-        //    textfield 2  DONE
-        //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //            let currentText = limitTextField.text ?? ""
-        //            guard let stringRange = Range(range, in: currentText) else { return false }
-        //
-        //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        //            charCounter = updatedText.count
-        //            charactersCounter.text = "\(charCounter)/10"
-        //            return updatedText.count < 10
-        //        }
-        
-        
-        //    textfield 3 sample DONE
-//                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//                    print("didEndEditing")
-//
-//                    let inputText: String = characterTextField.text ?? ""
-//
-//                    if isValidText(inputText: inputText) == true {
-//                        onlyCharectersLabel.textColor = .green
-//                    } else {
-//                        onlyCharectersLabel.textColor = .red
-//                    }
-//
-//                    print("Entered text -  \(isValidText(inputText: inputText))")
-//                }
-        
-        
-        //  4 field 4  LINK DONE
-//            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//                print("didEndEditing")
-//
-//                //        if textField == linkTextField {
-//                let inputLink: String = linkTextField.text ?? ""
-//                print("\(inputLink)")
-//
-//                let delay : Double = 5.0    // 5 seconds here
-//                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-//
-//                    func open(string: String){
-//                        if let url = URL(string: inputLink) {
-//                            UIApplication.shared.open(url)
-//                        }
-//                    }
-//                }
-//            }
-        
-        //  5 field 5  PASSWORD
-        
-//        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//            print("didEndEditing")
-//
-//            let inputPassword: String = passwordTextField.text ?? ""
-//
-//            print("Entered password \(isValid(inputPassword: inputPassword))")
-//        }
-//
-        
-        
-        
+    enum State {
+        case lettersTF
+        case limitTF
+        case characterTF
+        case linkTF
+        case passwordTF
     }
     
     
+    
+    //constants
+    enum Constants {
+        enum LabelsSettings {
+            static let lettersTextViewCornerRadius: CGFloat = 10
+        }
+        
+        enum LabelsFonts {
+            static let mainLabelFont = UIFont(name: "Rubik", size: 34)
+            static let smallLabelFont = UIFont(name: "Rubik", size: 13)
+            
+        }
+        enum LabelsTexts {
+            static let mainTitleLabeText = "Text Fields"
+            static let noDigitLabelText = "NO digit field"
+            static let inputLimitLabelText = "Input limit"
+            static let onlyCharectersLabelText = "Only characters"
+            static let linkLabelText = "Link"
+            static let validationLabelText = "Validation rules"
+            static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+            
+            
+            
+            static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+            static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
+        }
+        enum LabelsBackgroundColors {
+            static let labelBackgoundColors = UIColor.white
+        }
+        enum TextFields {
+            static let lettersTextFieldPlaceholderText = "Type here"
+            static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
+            static let linkTextFieldPlaceholderText = "www.example.com"
+            static let passwordTextFieldPlaceholderText = "Password"
+            
+            static let textFieldFont = UIFont(name: "Rubik", size: 17)
+            static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
+            static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+            static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+        }
+    }
+    
+    //    textfield 1  DONE
+    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            return (string.containsValidCharacter)
+    //        }
+    
+    //    textfield 2  DONE
+    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //            let currentText = limitTextField.text ?? ""
+    //            guard let stringRange = Range(range, in: currentText) else { return false }
+    //
+    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+    //            charCounter = updatedText.count
+    //            charactersCounter.text = "\(charCounter)/10"
+    //            return updatedText.count < 10
+    //        }
+    
+    
+    //    textfield 3 sample DONE
+    //                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //                    print("didEndEditing")
+    //
+    //                    let inputText: String = characterTextField.text ?? ""
+    //
+    //                    if isValidText(inputText: inputText) == true {
+    //                        onlyCharectersLabel.textColor = .green
+    //                    } else {
+    //                        onlyCharectersLabel.textColor = .red
+    //                    }
+    //
+    //                    print("Entered text -  \(isValidText(inputText: inputText))")
+    //                }
+    
+    
+    //  4 field 4  LINK DONE
+    //            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //                print("didEndEditing")
+    //
+    //                //        if textField == linkTextField {
+    //                let inputLink: String = linkTextField.text ?? ""
+    //                print("\(inputLink)")
+    //
+    //                let delay : Double = 5.0    // 5 seconds here
+    //                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+    //
+    //                    func open(string: String){
+    //                        if let url = URL(string: inputLink) {
+    //                            UIApplication.shared.open(url)
+    //                        }
+    //                    }
+    //                }
+    //            }
+    
+    //  5 field 5  PASSWORD
+    
+    //        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //            print("didEndEditing")
+    //
+    //            let inputPassword: String = passwordTextField.text ?? ""
+    //
+    //            print("Entered password \(isValid(inputPassword: inputPassword))")
+    //        }
+    //
+    
+    
+    
+    
+    
+    
     //MARK: keyboard
+//    private func addTapToHideKeyboard() {
+//        let tap = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(hideKeyboard(gesture:))
+//        )
+//        contentView.addGestureRecognizer(tap)
+//    }
+//    private func observeKeyboardNotificaton() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardWillShow(sender:)),
+//                                               name: UIResponder.keyboardWillShowNotification,
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardWillHide(sender:)),
+//                                               name: UIResponder.keyboardWillHideNotification,
+//                                               object: nil)
+//    }
+//    @objc private func keyboardWillShow(sender: NSNotification) {
+//        guard let userInfo = sender.userInfo else { return }
+//        guard var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+//        var contentInset: UIEdgeInsets = self.view.safeAreaInsets  // contentInset
+//        contentInset.bottom = keyboardFrame.size.height
+//        view.safeAreaInsets = contentInset
+//    }
+//    @objc private  func keyboardWillHide(sender: NSNotification) {
+//        let contentInset: UIEdgeInsets = UIEdgeInsets.zero
+//        scrollView.contentInset = contentInset
+//    }
     
     
     
-    
-    // MARK: Extension String
-    
-    
-    
-    
-    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        if lettersTextField.isEditing || limitTextField.isEditing || characterTextField.isEditing || linkTextField.isEditing || passwordTextField.isEditing
+        {
+                   moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: true)
+               }
+        }
+        
+        @objc func keyboardWillHide(_ notification: NSNotification) {
+             // Add code later...
+        }
+}
+
+// MARK: Extension String
+
+
+
+
+
 //}
