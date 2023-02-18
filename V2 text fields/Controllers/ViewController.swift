@@ -41,23 +41,28 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
         
-        
-//        NotificationCenter.default.addObserver(
-//                  self,
-//                  selector: #selector(self.keyboardWillShow),
-//                  name: UIResponder.keyboardWillShowNotification,
-//                  object: nil)
-//
-//              NotificationCenter.default.addObserver(
-//                  self,
-//                  selector: #selector(self.keyboardWillHide),
-//                  name: UIResponder.keyboardWillHideNotification,
-//                  object: nil)
-          
-        
+        registerForKeyBoardNotification()
+    }
+    
+    deinit {
         
     }
     
+    func registerForKeyBoardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: NSNotification.keyboardWillShowNotification //.Name.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: NSNotification.Name.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    }
+    
+    @objc func kbWillShow(_ notification: Notification) {
+        
+    }
+    @objc func kbWillHide() {
+        
+    }
     
     
     let scrollView = UIScrollView()
