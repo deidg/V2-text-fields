@@ -5,7 +5,7 @@
 //  Created by Alex on 07.02.2023.
 //
 
-// TODO: доставать и скрывать клавиатуру    https://fluffy.es/move-view-when-keyboard-is-shown/
+
 //TODO: при настройке состояний - стартовать с первого ТФ, остальные неактивны
 
 import UIKit
@@ -17,15 +17,18 @@ import SafariServices
 //import Veil
 
 class ViewController: UIViewController {//,UITextFieldDelegate {
-    // to store the current active textfield
-    var activeTextField : UITextField? = nil
+    
+    var activeTextField : UITextField? = nil   // to store the current active textfield
+    var state: State = .lettersTF
+    
+    
+    
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
     let passwordRegex: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     let inputTextRegex: String = "^([a-zA-Z]{5})[-]([\\d]{5})$"
-    //    let inputText = "dfgty-56789"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +59,9 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     }
    
     
-    
+    //MARK: additional views
     let scrollView = UIScrollView()
     let contentView = UIView()
-    
     
     let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -94,16 +96,10 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         lettersTextField.backgroundColor = Constants.TextFields.textFieldBackgroundColor
         lettersTextField.font = Constants.TextFields.textFieldFont
         lettersTextField.isEnabled = true
-        //        lettersTextField.keyboardType = UIKeyboardType.numberPad
-        
         lettersTextField.keyboardType = .alphabet
 //        lettersTextField.becomeFirstResponder()
-        
-        
         return lettersTextField
     }()
-    
-    
     
     //MARK:  2 field 2
     //    https://stackoverflow.com/questions/31363216/set-the-maximum-character-length-of-a-uitextfield-in-swift
@@ -118,7 +114,6 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     var charactersCounter: UILabel = {
         let charactersCounter = UILabel()
         charactersCounter.backgroundColor = .white
-        //                charactersCounter.text = "\(charCounter)/10" //Constants.LabelsTexts.charactersCounterText
         charactersCounter.textAlignment = .right
         charactersCounter.textColor = Constants.LabelsTexts.smallLabelTextColor
         charactersCounter.font = Constants.LabelsFonts.smallLabelFont
@@ -137,8 +132,6 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         limitTextField.placeholder = Constants.TextFields.lettersTextFieldPlaceholderText
         limitTextField.textColor = Constants.TextFields.textFieldTextColor
         limitTextField.font = Constants.TextFields.textFieldFont
-        
-        
         return limitTextField
     }()
     
@@ -225,11 +218,8 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         return validationRulesLabel
     }()
     
-    //    var passwordTextField = passwordTextField
-    
-    
     private func setupItemsOnView() {
-        
+    
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints{ make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -478,50 +468,21 @@ extension ViewController: UITextFieldDelegate {
         case passwordTF
     }
     
-    
-    
-    
-    //constants
-    enum Constants {
-        enum LabelsSettings {
-            static let lettersTextViewCornerRadius: CGFloat = 10
-        }
-        
-        enum LabelsFonts {
-            static let mainLabelFont = UIFont(name: "Rubik", size: 34)
-            static let smallLabelFont = UIFont(name: "Rubik", size: 13)
-            
-        }
-        enum LabelsTexts {
-            static let mainTitleLabeText = "Text Fields"
-            static let noDigitLabelText = "NO digit field"
-            static let inputLimitLabelText = "Input limit"
-            static let onlyCharectersLabelText = "Only characters"
-            static let linkLabelText = "Link"
-            static let validationLabelText = "Validation rules"
-            static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
-            
-            
-            
-            static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
-            static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
-        }
-        enum LabelsBackgroundColors {
-            static let labelBackgoundColors = UIColor.white
-        }
-        enum TextFields {
-            static let lettersTextFieldPlaceholderText = "Type here"
-            static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
-            static let linkTextFieldPlaceholderText = "www.example.com"
-            static let passwordTextFieldPlaceholderText = "Password"
-            
-            static let textFieldFont = UIFont(name: "Rubik", size: 17)
-            static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
-            static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
-            static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+    //создать функцию в которой перебираются все кейсы.
+    func switcher(activeTextField: String) {
+        switch state {
+        case .lettersTF:
+            print("textfield -  lettersTF is active")
+        case .limitTF:
+            print("textfield -  limitTF is active")
+        case .characterTF:
+            print("textfield -  characterTF is active")
+        case .linkTF:
+            print("textfield -  linkTF is active")
+        case .passwordTF:
+            print("textfield -  passwordTF is active")
         }
     }
-    
     //    textfield 1  DONE
     //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //            return (string.containsValidCharacter)
@@ -585,7 +546,41 @@ extension ViewController: UITextFieldDelegate {
     //        }
     //
     
-    
+    //constants
+    enum Constants {
+        enum LabelsSettings {
+            static let lettersTextViewCornerRadius: CGFloat = 10
+        }
+        enum LabelsFonts {
+            static let mainLabelFont = UIFont(name: "Rubik", size: 34)
+            static let smallLabelFont = UIFont(name: "Rubik", size: 13)
+        }
+        enum LabelsTexts {
+            static let mainTitleLabeText = "Text Fields"
+            static let noDigitLabelText = "NO digit field"
+            static let inputLimitLabelText = "Input limit"
+            static let onlyCharectersLabelText = "Only characters"
+            static let linkLabelText = "Link"
+            static let validationLabelText = "Validation rules"
+            static let validationRulesLabelText = "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n"
+            static let smallLabelTextColor = UIColor(red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+            static let validationRulesLabelTextColor = UIColor(red: 87/255, green: 87/255, blue: 87/255, alpha: 1)
+        }
+        enum LabelsBackgroundColors {
+            static let labelBackgoundColors = UIColor.white
+        }
+        enum TextFields {
+            static let lettersTextFieldPlaceholderText = "Type here"
+            static let onlyCharectersLabelPlaceholderText = "wwwww-ddddd"
+            static let linkTextFieldPlaceholderText = "www.example.com"
+            static let passwordTextFieldPlaceholderText = "Password"
+            
+            static let textFieldFont = UIFont(name: "Rubik", size: 17)
+            static let textFieldTextColor = UIColor(red: 60/255, green: 60/255, blue: 67/255, alpha: 0.6)
+            static let viewBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+            static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
+        }
+    }
     
     
     
