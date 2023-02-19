@@ -19,7 +19,11 @@ import SafariServices
 class ViewController: UIViewController {//,UITextFieldDelegate {
     
     var activeTextField : UITextField? = nil   // to store the current active textfield
-    var state: State = .lettersTF
+//    var state: State = .lettersTF {
+//        didSet {
+//            switcher(activeTextField:
+//        }
+//    }
     
     
     
@@ -39,7 +43,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
-        
+        createObservers()
         
         
         
@@ -97,7 +101,7 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         lettersTextField.font = Constants.TextFields.textFieldFont
         lettersTextField.isEnabled = true
         lettersTextField.keyboardType = .alphabet
-//        lettersTextField.becomeFirstResponder()
+        lettersTextField.becomeFirstResponder()
         return lettersTextField
     }()
     
@@ -394,6 +398,14 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
     
+    func createObservers() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.lettersTextField, name: <#T##NSNotification.Name?#>, object: nil)
+    }
+    
+    
+    
+    
     //TF 3
     func isValidText(inputText: String) -> Bool {
         return inputText.range(
@@ -483,10 +495,12 @@ extension ViewController: UITextFieldDelegate {
             print("textfield -  passwordTF is active")
         }
     }
-    //    textfield 1  DONE
-    //            func textField(_ lettersTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            return (string.containsValidCharacter)
-    //        }
+//        textfield 1  DONE
+            func textField(_ lettersTextField: UITextField,
+                shouldChangeCharactersIn range: NSRange,
+                replacementString string: String) -> Bool {
+                return (string.containsValidCharacter)// посмотреть запись в Обсидиан по этому заданию.
+            }
     
     //    textfield 2  DONE
     //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
