@@ -5,6 +5,8 @@
 //  Created by Alex on 07.02.2023.
 //
 
+// смотрел ролик Шона Аллена и пытался воспроизвести наблюдатели. https://www.youtube.com/watch?v=srqiDnLEocA ЗАпутался в их инициализации
+//Разобраться в инициализации. Запустить переключиние состояний и ТОЛЬКО ПОСЛЕ этого - разбираться с функциональным кодом.
 
 //TODO: при настройке состояний - стартовать с первого ТФ, остальные неактивны
 
@@ -19,11 +21,11 @@ import SafariServices
 class ViewController: UIViewController {//,UITextFieldDelegate {
     
     var activeTextField : UITextField? = nil   // to store the current active textfield
-//    var state: State = .lettersTF {
-//        didSet {
-//            switcher(activeTextField:
-//        }
-//    }
+    var currentState: State = .lettersTF {
+        didSet {
+            switcher() //switcher(activeTextField:
+        }
+    }
     
     
     
@@ -43,7 +45,6 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
-        createObservers()
         
         
         
@@ -398,13 +399,14 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
         self.view.backgroundColor = .white
     }
     
-    func createObservers() {
+//    func createObservers() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.lettersTextField, name: <#T##NSNotification.Name?#>, object: nil)
-    }
+//        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.lettersTextField, name: <#T##NSNotification.Name?#>, object: nil)
+//    }
     
     
-    
+                                               
+                                               
     
     //TF 3
     func isValidText(inputText: String) -> Bool {
@@ -465,6 +467,8 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
     }
     
 
+   
+    
 }
 
 
@@ -480,10 +484,11 @@ extension ViewController: UITextFieldDelegate {
         case passwordTF
     }
     
-    //создать функцию в которой перебираются все кейсы.
-    func switcher(activeTextField: String) {
-        switch state {
+    func switcher() {
+        switch currentState {
         case .lettersTF:
+            func1()
+            
             print("textfield -  lettersTF is active")
         case .limitTF:
             print("textfield -  limitTF is active")
@@ -495,12 +500,21 @@ extension ViewController: UITextFieldDelegate {
             print("textfield -  passwordTF is active")
         }
     }
+    
+    
+    //создать функцию в которой перебираются все кейсы.
+    
+    
+    
 //        textfield 1  DONE
-            func textField(_ lettersTextField: UITextField,
-                shouldChangeCharactersIn range: NSRange,
-                replacementString string: String) -> Bool {
-                return (string.containsValidCharacter)// посмотреть запись в Обсидиан по этому заданию.
-            }
+    func func1() {
+        print("выполняю func1")
+//        func textField(_ lettersTextField: UITextField,
+//                       shouldChangeCharactersIn range: NSRange,
+//                       replacementString string: String) -> Bool {
+//            return (string.containsValidCharacter)// посмотреть запись в Обсидиан по этому заданию.
+//        }
+    }
     
     //    textfield 2  DONE
     //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
