@@ -18,12 +18,12 @@ import SafariServices
 //import MaskedUITextField
 //import Veil
 
-class ViewController: UIViewController {//,UITextFieldDelegate {
+final class ViewController: UIViewController {//,UITextFieldDelegate {
     
     var activeTextField : UITextField? = nil   // to store the current active textfield
     var currentState: State = .lettersTF {
         didSet {
-            switcher() //switcher(activeTextField:
+            switcher(currentState)
         }
     }
     
@@ -472,6 +472,21 @@ class ViewController: UIViewController {//,UITextFieldDelegate {
 }
 
 
+extension String {
+    
+    
+    var containsValidCharacter: Bool {
+        guard self != "" else { return true }
+        let hexSet = CharacterSet(charactersIn: "1234567890")
+        let newSet = CharacterSet(charactersIn: self)
+        return hexSet.isSuperset(of: newSet)
+      }
+    }
+
+
+
+
+
 
 //MARK: extension ViewController
 extension ViewController: UITextFieldDelegate {
@@ -484,11 +499,11 @@ extension ViewController: UITextFieldDelegate {
         case passwordTF
     }
     
-    func switcher() {
-        switch currentState {
+    func switcher(_ state: State) {
+        switch state {
         case .lettersTF:
-            func1()
-            
+//            lettersTFCheck(lettersTextField: lettersTextField)
+//            textField(lettersTextField)
             print("textfield -  lettersTF is active")
         case .limitTF:
             print("textfield -  limitTF is active")
@@ -506,15 +521,17 @@ extension ViewController: UITextFieldDelegate {
     
     
     
-//        textfield 1  DONE
-    func func1() {
-        print("выполняю func1")
-//        func textField(_ lettersTextField: UITextField,
+    //        textfield 1  DONE
+//    func func1() {
+//        print("выполняю func1")
+//    func lettersTFCheck(lettersTextField: UITextField) {
+//
+//        func textField(_ textField: UITextField,
 //                       shouldChangeCharactersIn range: NSRange,
 //                       replacementString string: String) -> Bool {
-//            return (string.containsValidCharacter)// посмотреть запись в Обсидиан по этому заданию.
+//            return (string.containsValidCharacter)     // посмотреть запись в Обсидиан по этому заданию.
 //        }
-    }
+//    }
     
     //    textfield 2  DONE
     //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -622,71 +639,75 @@ extension ViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.activeTextField = nil
     }
- 
+    
+    
+    
+    
     
     
     
     
     //====
-//    @objc func keyboardWillShow(sender: NSNotification) {
-//        guard let userInfo = sender.userInfo,
-//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-//              let currentTextField = UIResponder.currentFirst() as? UITextField else { return }
-//
-//        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-//        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
-//        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
-//
-//        // if textField bottom is below keyboard bottom - bump the frame up
-//        if textFieldBottomY > keyboardTopY {
-//            let textBoxY = convertedTextFieldFrame.origin.y
-//            let newFrameY = (textBoxY - keyboardTopY / 2) * -1
-//            view.frame.origin.y = newFrameY
-//        }
-//
-//
-//        func keyboardWillShow(sender: NSNotification) {
-//            view.frame.origin.y = view.frame.origin.y - 200
-//        }
-//
-//        func keyboardWillHide(notification: NSNotification) {
-//            view.frame.origin.y = 0
-//        }
-        
-        
-//        extension UIResponder {
-//
-//            private struct Static {
-//                static weak var responder: UIResponder?
-//            }
-//
-//            /// Finds the current first responder
-//            /// - Returns: the current UIResponder if it exists
-//            static func currentFirst() -> UIResponder? {
-//                Static.responder = nil
-//                UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
-//                return Static.responder
-//            }
-//
-//            @objc private func _trap() {
-//                Static.responder = self
-//            }
-//        }
+    //    @objc func keyboardWillShow(sender: NSNotification) {
+    //        guard let userInfo = sender.userInfo,
+    //              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+    //              let currentTextField = UIResponder.currentFirst() as? UITextField else { return }
+    //
+    //        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+    //        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+    //        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+    //
+    //        // if textField bottom is below keyboard bottom - bump the frame up
+    //        if textFieldBottomY > keyboardTopY {
+    //            let textBoxY = convertedTextFieldFrame.origin.y
+    //            let newFrameY = (textBoxY - keyboardTopY / 2) * -1
+    //            view.frame.origin.y = newFrameY
+    //        }
+    //
+    //
+    //        func keyboardWillShow(sender: NSNotification) {
+    //            view.frame.origin.y = view.frame.origin.y - 200
+    //        }
+    //
+    //        func keyboardWillHide(notification: NSNotification) {
+    //            view.frame.origin.y = 0
+    //        }
+    
+    
+    //        extension UIResponder {
+    //
+    //            private struct Static {
+    //                static weak var responder: UIResponder?
+    //            }
+    //
+    //            /// Finds the current first responder
+    //            /// - Returns: the current UIResponder if it exists
+    //            static func currentFirst() -> UIResponder? {
+    //                Static.responder = nil
+    //                UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
+    //                return Static.responder
+    //            }
+    //
+    //            @objc private func _trap() {
+    //                Static.responder = self
+    //            }
+    //        }
     //=====
-        
-        
-        
-        //
-        //        @objc func keyboardWillHide(_ notification: NSNotification) {
-        //             // Add code later...
-        //        }
-        //}
-        
-        // MARK: Extension String
-        
-        
-        
-        
-        
-    }
-//}
+    
+    
+    
+    //
+    //        @objc func keyboardWillHide(_ notification: NSNotification) {
+    //             // Add code later...
+    //        }
+    //}
+    
+    // MARK: Extension String
+    
+    
+    
+    
+    
+    //    }
+    //}
+}
