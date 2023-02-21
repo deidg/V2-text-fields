@@ -20,12 +20,12 @@ import SafariServices
 final class ViewController: UIViewController {//,UITextFieldDelegate {
     
     var activeTextField : UITextField? = nil   // to store the current active textfield
-    var currentState: State = .lettersTF {
-        didSet {
-            switcher(currentState)
-        }
-    }
-    
+//    var currentState: State = .lettersTF {
+//        didSet {
+//            switcher(currentState)
+//        }
+//    }
+//
     
     
     var digitCounter: Int = 0  //TODO: private?
@@ -39,6 +39,7 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
+        
         lettersTextField.delegate = self
         limitTextField.delegate = self
         characterTextField.delegate = self
@@ -60,6 +61,10 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         let attributedString = NSMutableAttributedString(string: "Min length 8 characters.\nMin 1 digit,\nMin 1 lowercase,\nMin 1 capital required.\n")
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
     }
    
     
@@ -394,6 +399,25 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         }
     }
     
+    private func switchBasedNextTextField(_ textField: UITextField) {
+        switch textField {
+        case self.lettersTextField:
+            self.lettersTextField.becomeFirstResponder()
+        case self.limitTextField:
+            self.limitTextField.becomeFirstResponder()
+        case self.characterTextField:
+            self.characterTextField.becomeFirstResponder()
+        case self.linkTextField:
+            self.linkTextField.becomeFirstResponder()
+        case self.passwordTextField:
+            self.passwordTextField.becomeFirstResponder()
+        default:
+            print("")
+        }
+    
+    
+    
+    
     func defaultConfiguration() {
         self.view.backgroundColor = .white
     }
@@ -490,35 +514,35 @@ extension String {
 //MARK: extension ViewController
 extension ViewController: UITextFieldDelegate {
     
-    enum State {
-        case lettersTF
-        case limitTF
-        case characterTF
-        case linkTF
-        case passwordTF
-    }
-    
-    func switcher(_ state: State) {
-        
-        func initialF(){
-            print("textfield -  lettersTF is active")
-        }
-        
-        
-        
-        switch state {
-        case .lettersTF:
-            initialF()
-        case .limitTF:
-            print("textfield -  limitTF is active")
-        case .characterTF:
-            print("textfield -  characterTF is active")
-        case .linkTF:
-            print("textfield -  linkTF is active")
-        case .passwordTF:
-            print("textfield -  passwordTF is active")
-        }
-    }
+//    enum State {
+//        case lettersTF
+//        case limitTF
+//        case characterTF
+//        case linkTF
+//        case passwordTF
+//    }
+//
+//    func switcher(_ state: State) {
+//
+//        func initialF(){
+//            print("textfield -  lettersTF is active")
+//        }
+//
+//
+//
+//        switch state {
+//        case .lettersTF:
+//            initialF()
+//        case .limitTF:
+//            print("textfield -  limitTF is active")
+//        case .characterTF:
+//            print("textfield -  characterTF is active")
+//        case .linkTF:
+//            print("textfield -  linkTF is active")
+//        case .passwordTF:
+//            print("textfield -  passwordTF is active")
+//        }
+//    }
     
     
     //создать функцию в которой перебираются все кейсы.
@@ -715,3 +739,14 @@ extension ViewController: UITextFieldDelegate {
     //    }
     //}
 }
+
+
+
+//List of textfields
+
+//lettersTextField
+//limitTextField
+//characterTextField
+//linkTextField
+//passwordTextField
+
