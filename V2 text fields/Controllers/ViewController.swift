@@ -5,8 +5,7 @@
 //  Created by Alex on 07.02.2023.
 //
 
-// смотрел ролик Шона Аллена и пытался воспроизвести наблюдатели. https://www.youtube.com/watch?v=srqiDnLEocA ЗАпутался в их инициализации
-//Разобраться в инициализации. Запустить переключиние состояний и ТОЛЬКО ПОСЛЕ этого - разбираться с функциональным кодом.
+// заставить .lettersTF распечатывать нужный текст. Проверить еще раз все тени. 
 
 //TODO: при настройке состояний - стартовать с первого ТФ, остальные неактивны
 
@@ -500,11 +499,16 @@ extension ViewController: UITextFieldDelegate {
     }
     
     func switcher(_ state: State) {
+        
+        func initialF(){
+            print("textfield -  lettersTF is active")
+        }
+        
+        
+        
         switch state {
         case .lettersTF:
-//            lettersTFCheck(lettersTextField: lettersTextField)
-//            textField(lettersTextField)
-            print("textfield -  lettersTF is active")
+            initialF()
         case .limitTF:
             print("textfield -  limitTF is active")
         case .characterTF:
