@@ -5,10 +5,6 @@
 //  Created by Alex on 07.02.2023.
 //
 
-// заставить .lettersTF распечатывать нужный текст. Проверить еще раз все тени. 
-
-//TODO: при настройке состояний - стартовать с первого ТФ, остальные неактивны
-
 import UIKit
 import SnapKit
 import SafariServices
@@ -19,19 +15,13 @@ import SafariServices
 
 final class ViewController: UIViewController {//,UITextFieldDelegate {
     
-    var activeTextField : UITextField? = nil   // to store the current active textfield
-    var currentState: State = .lettersTF {
-        didSet {
-            switcher(currentState)
-        }
-    }
-    
-    
+    var activeTextField : UITextField? = nil
     
     var digitCounter: Int = 0  //TODO: private?
     var charCounter: Int = 0   //TODO: private?
     private let maxСharacterNumber = 10
     
+    let inputDigitRegex: String = "^([0-9]){5}$"
     let passwordRegex: String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[a-zA-z\\d!$@$!%*?&#]{8,25}"
     let inputTextRegex: String = "^([a-zA-Z]{5})[-]([\\d]{5})$"
     
@@ -39,18 +29,17 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         super.viewDidLoad()
         setupItemsOnView()
         defaultConfiguration()
+        
         lettersTextField.delegate = self
         limitTextField.delegate = self
         characterTextField.delegate = self
         linkTextField.delegate = self
         passwordTextField.delegate = self
         
-        
-        
+        //        switchBasedNextTextField(lettersTextField)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.backgroundTap))
         self.view.addGestureRecognizer(tapGestureRecognizer)
-        // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -61,7 +50,6 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraph, range: NSMakeRange(0, attributedString.length))
         validationRulesLabel.attributedText = attributedString
     }
-   
     
     //MARK: additional views
     let scrollView = UIScrollView()
@@ -210,6 +198,8 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         passwordTextField.placeholder = Constants.TextFields.passwordTextFieldPlaceholderText
         passwordTextField.textColor = Constants.TextFields.textFieldTextColor
         passwordTextField.font = Constants.TextFields.textFieldFont
+        //        passwordTextField.becomeFirstResponder()
+        
         return passwordTextField
     }()
     let validationRulesLabel: UILabel = {
@@ -223,7 +213,7 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
     }()
     
     private func setupItemsOnView() {
-    
+        
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints{ make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -394,82 +384,64 @@ final class ViewController: UIViewController {//,UITextFieldDelegate {
         }
     }
     
+    
+    
+    
+    
     func defaultConfiguration() {
         self.view.backgroundColor = .white
     }
     
-//    func createObservers() {
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.lettersTextField, name: <#T##NSNotification.Name?#>, object: nil)
-//    }
-    
-    
-                                               
-                                               
     
     //TF 3
-    func isValidText(inputText: String) -> Bool {
-        return inputText.range(
-            of: inputTextRegex,
-            options: .regularExpression
-        ) != nil
-        return true
-    }
+    //        func isValidText(inputText: String) -> Bool {
+    //                    return inputText.range(
+    //                        of: inputTextRegex,
+    //                        options: .regularExpression
+    //                    ) != nil
+    //                    return true
+    //                }
+    //
     
-    
-    // TF 5
-    //    func isValid(inputPassword: String) -> Bool {
-    //        return inputPassword.range(
-    //            of: passwordRegex,
-    //            options: .regularExpression
-    //        ) != nil
-    //        return true
-    //    }
-    
-    
-    
+    //             TF 5
+    //                func isValid(inputPassword: String) -> Bool {
+    //                    return inputPassword.range(
+    //                        of: passwordRegex,
+    //                        options: .regularExpression
+    //                    ) != nil
+    //                    return true
+    //                }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            
             // if keyboard size is not available for some reason, dont do anything
-           return
+            return
         }
         
         var shouldMoveViewUp = false
-        
         // if active text field is not nil
         if let activeTextField = activeTextField {
-            
             let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY;
             let topOfKeyboard = self.view.frame.height - keyboardSize.height
-            
             if bottomOfTextField > topOfKeyboard {
                 shouldMoveViewUp = true
             }
         }
-        
         if(shouldMoveViewUp) {
             self.view.frame.origin.y = 0 - keyboardSize.height
         }
     }
-
     @objc func keyboardWillHide(notification: NSNotification) {
         self.view.frame.origin.y = 0
     }
-    
     @objc func backgroundTap(_ sender: UITapGestureRecognizer) {
         // go through all of the textfield inside the view, and end editing thus resigning first responder
         // ie. it will trigger a keyboardWillHide notification
         self.view.endEditing(true)
     }
     
-
-   
-    
 }
-
 
 extension String {
     
@@ -483,117 +455,127 @@ extension String {
     }
 
 
-
-
-
-
 //MARK: extension ViewController
 extension ViewController: UITextFieldDelegate {
     
-    enum State {
-        case lettersTF
-        case limitTF
-        case characterTF
-        case linkTF
-        case passwordTF
+    private func switchBasedNextTextField(_ textField: UITextField) {
+        switch textField {
+        case self.lettersTextField:
+            //TF1
+        
+//            var textFromTF: String = lettersTextField.text ?? ""
+//            func isValid(lettersTextField: String) -> Bool {
+//                return lettersTextField.range(
+//                    of: inputDigitRegex,
+//                    options: .regularExpression
+//                ) != nil
+//                return true
+//            }
+//            var result = isValid(lettersTextField: textFromTF)
+//            print(result)
+       
+            
+//            func printing() {
+//                print("herr")
+//            }
+//            printing()
+
+            self.limitTextField.becomeFirstResponder()
+            print("tf1")
+        case self.limitTextField:
+            //TF2
+            self.characterTextField.becomeFirstResponder()
+            print("tf2")
+        case self.characterTextField:
+            //TF3
+            self.linkTextField.becomeFirstResponder()
+            print("tf3")
+        case self.linkTextField:
+            //TF4
+            self.passwordTextField.becomeFirstResponder()
+            print("tf4")
+        default:
+            //TF5
+            self.passwordTextField.resignFirstResponder()
+            print("final")
+        }
     }
     
-    func switcher(_ state: State) {
-        
-        func initialF(){
-            print("textfield -  lettersTF is active")
+    
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            self.switchBasedNextTextField(textField)
+            return true
         }
-        
-        
-        
-        switch state {
-        case .lettersTF:
-            initialF()
-        case .limitTF:
-            print("textfield -  limitTF is active")
-        case .characterTF:
-            print("textfield -  characterTF is active")
-        case .linkTF:
-            print("textfield -  linkTF is active")
-        case .passwordTF:
-            print("textfield -  passwordTF is active")
-        }
-    }
-    
-    
-    //создать функцию в которой перебираются все кейсы.
-    
-    
-    
+
+
     //        textfield 1  DONE
-//    func func1() {
-//        print("выполняю func1")
-//    func lettersTFCheck(lettersTextField: UITextField) {
-//
-//        func textField(_ textField: UITextField,
-//                       shouldChangeCharactersIn range: NSRange,
-//                       replacementString string: String) -> Bool {
-//            return (string.containsValidCharacter)     // посмотреть запись в Обсидиан по этому заданию.
-//        }
-//    }
+  
+//            func textField(_ textField: UITextField,
+//                           shouldChangeCharactersIn range: NSRange,
+//                           replacementString string: String) -> Bool {
+//                return (string.containsValidCharacter)
+//            }
+
     
     //    textfield 2  DONE
-    //        func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //            let currentText = limitTextField.text ?? ""
-    //            guard let stringRange = Range(range, in: currentText) else { return false }
-    //
-    //            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    //            charCounter = updatedText.count
-    //            charactersCounter.text = "\(charCounter)/10"
-    //            return updatedText.count < 10
-    //        }
+//            func textField(_ limitTextField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//                let currentText = limitTextField.text ?? ""
+//                guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//                let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+//                charCounter = updatedText.count
+//                charactersCounter.text = "\(charCounter)/10"
+//                return updatedText.count < 10
+//            }
     
     
     //    textfield 3 sample DONE
-    //                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //                    print("didEndEditing")
-    //
-    //                    let inputText: String = characterTextField.text ?? ""
-    //
-    //                    if isValidText(inputText: inputText) == true {
-    //                        onlyCharectersLabel.textColor = .green
-    //                    } else {
-    //                        onlyCharectersLabel.textColor = .red
-    //                    }
-    //
-    //                    print("Entered text -  \(isValidText(inputText: inputText))")
-    //                }
+//                    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//                        print("didEndEditing")
+//
+//                        let inputText: String = characterTextField.text ?? ""
+//                         //str 437
+//                        if isValidText(inputText: inputText) == true {
+//                            onlyCharectersLabel.textColor = .green
+//                        } else {
+//                            onlyCharectersLabel.textColor = .red
+//                        }
+//
+//                        print("Entered text -  \(isValidText(inputText: inputText))")
+//                    }
     
     
-    //  4 field 4  LINK DONE
-    //            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //                print("didEndEditing")
-    //
-    //                //        if textField == linkTextField {
-    //                let inputLink: String = linkTextField.text ?? ""
-    //                print("\(inputLink)")
-    //
-    //                let delay : Double = 5.0    // 5 seconds here
-    //                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-    //
-    //                    func open(string: String){
-    //                        if let url = URL(string: inputLink) {
-    //                            UIApplication.shared.open(url)
-    //                        }
-    //                    }
-    //                }
-    //            }
+    //  4 field 4  LINK DONE  TODO: сделать удобную клавиатуру с вводом текста
+//                override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//                    print("didEndEditing")
+//
+//                    //        if textField == linkTextField {
+//                    let inputLink: String = linkTextField.text ?? ""
+//                    print("\(inputLink)")
+//
+//                    let delay : Double = 5.0    // 5 seconds here
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//
+//                        func open(string: String){
+//                            if let url = URL(string: inputLink) {
+//                                UIApplication.shared.open(url)
+//                            }
+//                        }
+//                    }
+//                }
     
     //  5 field 5  PASSWORD
     
-    //        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //            print("didEndEditing")
-    //
-    //            let inputPassword: String = passwordTextField.text ?? ""
-    //
-    //            print("Entered password \(isValid(inputPassword: inputPassword))")
-    //        }
-    //
+//            override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//                print("didEndEditing")
+//
+//                let inputPassword: String = passwordTextField.text ?? ""
+//
+//                print("Entered password \(isValid(inputPassword: inputPassword))")   //str  446
+//            }
+    
     
     //constants
     enum Constants {
@@ -630,88 +612,21 @@ extension ViewController: UITextFieldDelegate {
             static let textFieldBackgroundColor = UIColor(red: 118/255, green: 118/255, blue: 128/255, alpha: 0.12)
         }
     }
-    
-    
-    
+
     
     //MARK: keyboard
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
     }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.activeTextField = nil
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    //====
-    //    @objc func keyboardWillShow(sender: NSNotification) {
-    //        guard let userInfo = sender.userInfo,
-    //              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-    //              let currentTextField = UIResponder.currentFirst() as? UITextField else { return }
-    //
-    //        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-    //        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
-    //        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
-    //
-    //        // if textField bottom is below keyboard bottom - bump the frame up
-    //        if textFieldBottomY > keyboardTopY {
-    //            let textBoxY = convertedTextFieldFrame.origin.y
-    //            let newFrameY = (textBoxY - keyboardTopY / 2) * -1
-    //            view.frame.origin.y = newFrameY
-    //        }
-    //
-    //
-    //        func keyboardWillShow(sender: NSNotification) {
-    //            view.frame.origin.y = view.frame.origin.y - 200
-    //        }
-    //
-    //        func keyboardWillHide(notification: NSNotification) {
-    //            view.frame.origin.y = 0
-    //        }
-    
-    
-    //        extension UIResponder {
-    //
-    //            private struct Static {
-    //                static weak var responder: UIResponder?
-    //            }
-    //
-    //            /// Finds the current first responder
-    //            /// - Returns: the current UIResponder if it exists
-    //            static func currentFirst() -> UIResponder? {
-    //                Static.responder = nil
-    //                UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
-    //                return Static.responder
-    //            }
-    //
-    //            @objc private func _trap() {
-    //                Static.responder = self
-    //            }
-    //        }
-    //=====
-    
-    
-    
-    //
-    //        @objc func keyboardWillHide(_ notification: NSNotification) {
-    //             // Add code later...
-    //        }
-    //}
+ 
     
     // MARK: Extension String
-    
-    
-    
-    
-    
-    //    }
-    //}
+ 
 }
+
+
+
